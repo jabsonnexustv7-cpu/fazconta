@@ -14,6 +14,16 @@ const calculators=[
 <section class="hero container"><div><span class="hero-chip">Portal completo</span><h1>Calculadoras inteligentes para decisões melhores.</h1><p>Busque por título, descrição ou categoria e encontre resultados imediatos.</p><div class="search-shell"><input id="search-calc" type="search" placeholder="Ex: FGTS, CDI, IMC..." /></div></div><aside class="hero-panel"><p class="result-title">Categorias</p><p class="result-value">5 áreas</p></aside></section>
 <section class="container section"><h2>Categorias</h2><div class="cards-grid"><CalculatorCard title="Trabalhista" href="/trabalhista" description="Folha e direitos" badge="Categoria" icon="💼" /><CalculatorCard title="Financeiro" href="/financeiro" description="Investimentos e crédito" badge="Categoria" icon="💰" /><CalculatorCard title="Utilidades" href="/utilidades" description="Conversores" badge="Categoria" icon="🛠" /><CalculatorCard title="Saúde" href="/saude" description="Bem-estar" badge="Categoria" icon="🩺" /><CalculatorCard title="Matemática" href="/matematica" description="Operações" badge="Categoria" icon="🧮" /></div></section>
 <section class="container section"><h2>Calculadoras populares</h2><div class="cards-grid" id="all-calcs">{calculators.map((c)=><article data-title={c.title.toLowerCase()} data-description={c.description.toLowerCase()} data-category={c.category.toLowerCase()}><CalculatorCard title={c.title} description={c.description} href={c.href} badge={c.category} icon={c.icon} /></article>)}</div></section>
+
+<section class="container section"><h2>Guias úteis</h2><div class="cards-grid">
+<a class="calc-card" href="/blog/como-calcular-salario-liquido"><h3>Como calcular salário líquido</h3></a>
+<a class="calc-card" href="/blog/como-calcular-ferias"><h3>Como calcular férias</h3></a>
+<a class="calc-card" href="/blog/como-calcular-rescisao"><h3>Como calcular rescisão</h3></a>
+<a class="calc-card" href="/blog/como-calcular-juros-compostos"><h3>Como calcular juros compostos</h3></a>
+<a class="calc-card" href="/blog/como-calcular-imc"><h3>Como calcular IMC</h3></a>
+<a class="calc-card" href="/blog/como-calcular-porcentagem"><h3>Como calcular porcentagem</h3></a>
+</div></section>
+
 <div class="container"><FAQSection title="FAQ FazConta" subtitle="Tudo para usar as calculadoras com segurança." /></div>
 <script>const input=document.getElementById('search-calc');const items=document.querySelectorAll('#all-calcs article');input?.addEventListener('input',()=>{const q=input.value.toLowerCase().trim();items.forEach((i)=>{i.style.display=[i.dataset.title,i.dataset.description,i.dataset.category].some((v)=>v.includes(q))?'':'none';});});</script>
 </BaseLayout>

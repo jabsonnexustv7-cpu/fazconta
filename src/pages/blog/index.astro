@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { calculadorasSeo } from '../../data/calculadoras';
+const artigos = calculadorasSeo.flatMap((c) => c.artigosRelacionados).filter((a, i, arr) => arr.findIndex((x) => x.rota === a.rota) === i);
+---
+<BaseLayout title="Blog FazConta | Guias e conteúdos práticos" description="Artigos úteis para entender cálculos trabalhistas, financeiros e utilidades no dia a dia.">
+<section class="container section">
+  <Breadcrumb items={[{label:'Início',href:'/'},{label:'Blog'}]} />
+  <h1>Blog FazConta</h1>
+  <p class="lead">Guias práticos para estudar cálculos antes de simular.</p>
+  <h2>Artigos recentes</h2>
+  <div class="cards-grid">{artigos.map((a) => <a class="calc-card" href={a.rota}><h3>{a.titulo}</h3></a>)}</div>
+  <h2>Categorias</h2>
+  <ul><li><a href="/trabalhista">Trabalhista</a></li><li><a href="/financeiro">Financeiro</a></li><li><a href="/utilidades">Utilidades</a></li><li><a href="/saude">Saúde</a></li><li><a href="/matematica">Matemática</a></li></ul>
+  <h2>Calculadoras relacionadas</h2>
+  <ul>{calculadorasSeo.map((c)=><li><a href={c.rota}>{c.titulo}</a></li>)}</ul>
+</section>
+</BaseLayout>
