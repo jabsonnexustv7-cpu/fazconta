@@ -2,29 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CalculatorCard from '../../components/CalculatorCard.astro';
 import FAQSection from '../../components/FAQSection.astro';
-
-const cards = ['cdi','selic','poupanca','emprestimo','cartao-de-credito','parcelamento','reserva-emergencia','conversor-de-moeda','investimento-mensal'];
+import FAQSchema from '../../components/FAQSchema.astro';
+const cards=['cdi','selic','poupanca','emprestimo','reserva-emergencia','juros-compostos','financiamento'];
+const faqItems=[{question:'As simulações são oficiais?',answer:'Não. São estimativas para planejamento financeiro.'},{question:'Posso comparar cenários?',answer:'Sim, altere taxa, prazo e aportes para comparar.'},{question:'Tem custos de banco inclusos?',answer:'Nem sempre. Verifique tarifas e impostos no contrato.'},{question:'Substitui consultoria?',answer:'Não. Use como apoio para decisão.'}];
 ---
-
-<BaseLayout title="Calculadoras Financeiras para Planejamento | FazConta" description="Simule juros, empréstimos, cartão, reserva e investimentos com calculadoras financeiras claras para decisões de curto e longo prazo.">
-  <section class="container section">
-    <h1>Calculadoras financeiras para organizar dívidas, investimentos e metas</h1>
-    <p class="lead">Use simulações simples para tomar decisões de dinheiro com mais clareza e menos improviso.</p>
-    <p>Esta categoria foi criada para quem precisa comparar cenários financeiros antes de contratar crédito, parcelar compras ou montar um plano de investimento. Em poucos passos, você consegue visualizar impacto de juros, prazo e valor mensal nas suas decisões.</p>
-    <p>As ferramentas são úteis para rotina pessoal, casal, autônomos e pequenos negócios. Você pode estimar rendimento com CDI e Selic, testar estratégias de aporte mensal e medir o custo real de cartão de crédito, empréstimo e parcelamento.</p>
-    <p>Os resultados ajudam no planejamento, mas não representam promessa de rentabilidade nem oferta de instituição financeira. Taxas, tributos, tarifas e regras mudam com frequência. Sempre confira as condições atualizadas no banco, corretora ou contrato antes de fechar qualquer operação.</p>
-
-    <h2>Principais calculadoras financeiras</h2>
-    <div class="cards-grid">{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/financeiro/${s}`} description="Simulador financeiro" badge="Financeiro" icon="financeiro" />)}</div>
-
-    <h2>Trilhas de uso recomendadas</h2>
-    <ul>
-      <li>Para investimentos: <a href="/financeiro/investimento-mensal">investimento mensal</a>, <a href="/financeiro/cdi">CDI</a> e <a href="/financeiro/selic">Selic</a>.</li>
-      <li>Para crédito: <a href="/financeiro/emprestimo">empréstimo</a>, <a href="/financeiro/parcelamento">parcelamento</a> e <a href="/financeiro/cartao-de-credito">cartão de crédito</a>.</li>
-      <li>Para segurança: <a href="/financeiro/reserva-emergencia">reserva de emergência</a> e <a href="/trabalhista/salario-liquido">salário líquido</a>.</li>
-    </ul>
-    <p><strong>Aviso:</strong> cálculos estimativos, sujeitos a variações de mercado e regras de cada instituição.</p>
-    <p><a class="btn" href="/financeiro/reserva-emergencia">Começar pela reserva de emergência</a></p>
-  </section>
-  <div class="container"><FAQSection title="FAQ da categoria financeira" items={[{question:'A calculadora considera todas as tarifas do banco?',answer:'Nem sempre. Algumas tarifas e impostos variam por produto e instituição.'},{question:'Posso usar para decidir investimento?',answer:'Sim, como apoio comparativo. Para decisão final, avalie risco, liquidez e perfil.'},{question:'Os juros são oficiais?',answer:'As taxas informadas servem para simulação e podem ficar desatualizadas.'},{question:'Substitui consultoria financeira?',answer:'Não. Em decisões relevantes, procure orientação profissional.'}]} /></div>
-</BaseLayout>
+<BaseLayout title='Financeiro | FazConta' description='Calculadoras financeiras para investimentos, crédito e planejamento.'><section class='container section'><h1>Calculadoras financeiras do FazConta</h1><p class='lead'>Planeje investimentos, dívidas e reserva com simulações claras.</p><h2>Todas as calculadoras</h2><div class='cards-grid'>{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/financeiro/${s}`} description='Simulação financeira específica' badge='Financeiro' icon='financeiro' />)}</div><h2>Mais acessadas</h2><ul><li><a href='/financeiro/cdi'>CDI</a></li><li><a href='/financeiro/juros-compostos'>Juros compostos</a></li><li><a href='/financeiro/emprestimo'>Empréstimo</a></li></ul><p><a href='/blog'>Ver conteúdos no blog</a></p><FAQSection items={faqItems} /><FAQSchema items={faqItems} /></section></BaseLayout>
