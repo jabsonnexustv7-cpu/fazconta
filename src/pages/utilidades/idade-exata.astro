@@ -4,6 +4,39 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import FAQSchema from '../../components/FAQSchema.astro';
 import AdSlot from '../../components/AdSlot.astro';
-const faqItems=[{question:'O resultado é oficial?',answer:'Não. É uma simulação para planejamento.'},{question:'Posso usar no celular?',answer:'Sim, a calculadora funciona em dispositivos móveis.'},{question:'Este cálculo substitui análise profissional?',answer:'Não. Use como apoio e valide condições reais.'},{question:'Os valores têm arredondamento?',answer:'Sim, para facilitar leitura em reais e percentuais.'}];
+const faqItems=[
+{question:'Qual a diferença entre idade completa e aproximada?',answer:'Idade completa considera anos, meses e dias exatos até a data de referência. A aproximada costuma simplificar para anos corridos ou total de dias arredondado.'},
+{question:'Posso calcular idade em uma data futura?',answer:'Sim. Basta escolher a data de referência desejada para simular aniversário, prazos ou planejamento.'},
+{question:'O total de dias vividos é exato?',answer:'É uma estimativa baseada no calendário e pode variar conforme regras específicas de contagem usadas em cada instituição.'},
+{question:'Serve para uso jurídico?',answer:'Use como apoio. Para fins oficiais, confirme a regra de contagem exigida pelo órgão responsável.'}
+];
 ---
-<BaseLayout title="Calculadora de Idade Exata | FazConta" description="Calcule idade em anos, meses e dias."><section class='container section'><Breadcrumb items={[{label:'Início',href:'/'},{label:'Utilidades',href:'/utilidades'},{label:'Calculadora de Idade Exata'}]} /><h1>Calculadora de Idade Exata</h1><p class='lead'>Calcule idade em anos, meses e dias.</p><p class='help-text'><strong>Aviso:</strong> cálculo estimativo para planejamento.</p><AdSlot /><div class='form-grid'><label>Data de nascimento<input id='dn' type='date' step='1' value=''></label><label>Data de referência<input id='dr' type='date' step='1' value=''></label></div><button class='btn' id='calc'>Calcular</button><div class='result-card'><p class='result-title'>Resultado</p><p class='result-value' id='res'>-</p><p class='result-detail' id='det'></p></div><h2>Como usar esta calculadora</h2><p>Preencha os campos com seus valores reais e clique em calcular.</p><h2>Como o cálculo é feito</h2><p>Aplicamos fórmula financeira/matemática padrão com exibição do breakdown.</p><h2>Exemplo prático</h2><p>Teste com valores próximos da sua realidade para comparar cenários.</p><h2>Calculadoras relacionadas</h2><ul><li><a href='/utilidades/dias-entre-datas'>dias entre datas</a></li><li><a href='/utilidades/regra-de-tres'>regra de tres</a></li><li><a href='/utilidades/porcentagem'>porcentagem</a></li><li><a href='/utilidades'>Ver categoria utilidades</a></li><li><a href='/blog'>Ver blog</a></li></ul><FAQSection items={faqItems} /><FAQSchema items={faqItems} /></section><script>calc.onclick=()=>{const n=new Date(dn.value),r=new Date(dr.value||Date.now());let anos=r.getFullYear()-n.getFullYear(),meses=r.getMonth()-n.getMonth(),dias=r.getDate()-n.getDate();if(dias<0){meses--;dias+=30}if(meses<0){anos--;meses+=12}res.textContent=`${anos} anos`;det.textContent=`${anos} anos, ${meses} meses e ${dias} dias`;};</script></BaseLayout>
+<BaseLayout title="Calculadora de Idade Exata | FazConta" description="Calcule idade em anos, meses e dias com data de referência e total aproximado de dias vividos.">
+<section class="container section">
+<Breadcrumb items={[{label:'Início',href:'/'},{label:'Utilidades',href:'/utilidades'},{label:'Calculadora de Idade Exata'}]} />
+<h1>Calculadora de Idade Exata</h1>
+<p class="lead">Descubra a idade completa em anos, meses e dias, com base na sua data de nascimento e em uma data de referência.</p>
+<p class="help-text"><strong>Aviso:</strong> cálculo estimativo para planejamento.</p><AdSlot />
+<div class="form-grid"><label>Data de nascimento<input id='dn' type='date'></label><label>Data de referência<input id='dr' type='date'></label></div>
+<button class='btn' id='calc'>Calcular idade</button>
+<div class='result-card'><p class='result-title'>Idade completa</p><p class='result-value' id='res'>-</p><p class='result-detail' id='det'></p></div>
+<h2>Como interpretar idade exata no dia a dia</h2>
+<p>Quando falamos em idade, muita gente pensa apenas no número de anos. Porém, em várias situações reais, a idade completa em anos, meses e dias faz diferença. Esta calculadora resolve justamente isso: você informa a data de nascimento e uma data de referência, e recebe uma leitura detalhada da idade naquele momento. Esse formato é útil para acompanhar desenvolvimento infantil, organização de aniversários, conferência de elegibilidade em processos, planejamento escolar e outras rotinas que dependem de datas.</p>
+<p>A diferença entre idade completa e idade aproximada está no nível de precisão. A idade aproximada normalmente considera só o ano atual menos o ano de nascimento, ignorando se a pessoa já fez aniversário. Já a idade completa confere mês e dia, evitando erro de interpretação. Exemplo: alguém nascido em outubro de 2000, em maio de 2026, ainda não completou 26 anos. Essa diferença, mesmo pequena, pode ser importante para documentos e prazos.</p>
+<p>Outro dado interessante é o total aproximado de dias vividos. Ele ajuda em metas pessoais, registros de marcos de vida e até em conteúdos comemorativos. Ainda assim, é importante lembrar que instituições podem usar regras próprias de contagem para fins formais, então use o número como referência prática, não como parecer oficial.</p>
+<p>Em uso cotidiano, esta calculadora também funciona como apoio de planejamento. Você pode simular uma idade em uma data futura para organizar eventos, viagens ou decisões de médio prazo. Também pode verificar uma data passada para relembrar marcos e períodos importantes. Em famílias com crianças, a visualização em meses e dias costuma ser ainda mais útil do que apenas anos.</p>
+<p>Para evitar erros, preencha as datas com atenção e verifique se a data de referência é igual ou posterior ao nascimento. Se a referência vier antes, não há como calcular idade válida. Em dispositivos móveis, o seletor de data facilita bastante a entrada dos campos e reduz erros de digitação.</p>
+<h2>Calculadoras relacionadas</h2><ul><li><a href='/utilidades/dias-entre-datas'>Dias entre Datas</a></li><li><a href='/utilidades/porcentagem'>Porcentagem</a></li><li><a href='/utilidades/regra-de-tres'>Regra de Três</a></li><li><a href='/utilidades'>Ver categoria Utilidades</a></li><li><a href='/blog'>Ver conteúdos do Blog</a></li></ul>
+<FAQSection items={faqItems} /><FAQSchema items={faqItems} /></section>
+<script>
+const hoje = new Date();
+if (!dr.value) dr.value = hoje.toISOString().slice(0,10);
+const emDias = (d1,d2)=>Math.floor((d2-d1)/86400000);
+calc.onclick=()=>{const n=new Date(dn.value+'T00:00:00');const r=new Date((dr.value||new Date().toISOString().slice(0,10))+'T00:00:00');
+if(!dn.value||Number.isNaN(n.getTime())||Number.isNaN(r.getTime())||r<n){res.textContent='-';det.textContent='Informe datas válidas (referência igual ou posterior ao nascimento).';return;}
+let anos=r.getFullYear()-n.getFullYear();let meses=r.getMonth()-n.getMonth();let dias=r.getDate()-n.getDate();
+if(dias<0){meses--;const prev=new Date(r.getFullYear(),r.getMonth(),0).getDate();dias+=prev;}if(meses<0){anos--;meses+=12;}
+const total=emDias(n,r);
+res.textContent=`${anos} anos, ${meses} meses e ${dias} dias`;
+det.textContent=`Total aproximado de dias vividos: ${total.toLocaleString('pt-BR')} dias.`;};
+</script></BaseLayout>

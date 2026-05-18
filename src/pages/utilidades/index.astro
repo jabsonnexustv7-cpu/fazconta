@@ -4,6 +4,35 @@ import CalculatorCard from '../../components/CalculatorCard.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import FAQSchema from '../../components/FAQSchema.astro';
 const cards=['regra-de-tres','idade-exata','dias-entre-datas','conversor-temperatura','conversor-medidas','imc','porcentagem'];
-const faqItems=[{question:'As simulações são oficiais?',answer:'Não. São estimativas para utilidades.'},{question:'Posso comparar cenários?',answer:'Sim, altere taxa, prazo e aportes para comparar.'},{question:'Tem custos de banco inclusos?',answer:'Nem sempre. Verifique tarifas e impostos no contrato.'},{question:'Substitui consultoria?',answer:'Não. Use como apoio para decisão.'}];
+const faqItems=[
+{question:'As calculadoras de Utilidades funcionam no celular?',answer:'Sim. Todas foram desenhadas para uso rápido em telas pequenas com campos objetivos.'},
+{question:'Esses resultados são oficiais?',answer:'Não. São estimativas úteis para rotina, estudo e planejamento.'},
+{question:'Qual calculadora devo usar primeiro?',answer:'Depende da necessidade: proporção, datas, conversões, saúde ou percentuais.'},
+{question:'Posso combinar calculadoras na mesma tarefa?',answer:'Sim. É comum usar conversão + porcentagem ou datas + idade no mesmo planejamento.'}
+];
 ---
-<BaseLayout title='Utilidades | FazConta' description='Calculadoras de utilidades para cotidiano, conversões e rotinas.'><section class='container section'><h1>Calculadoras de utilidades do FazConta</h1><p class='lead'>Planeje investimentos, dívidas e reserva com respostas rápidas para o cotidiano.</p><h2>Todas as calculadoras</h2><div class='cards-grid'>{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/utilidades/${s}`} description='Calculadora utilitária específica' badge='Utilidades' icon='utilidades' />)}</div><h2>Mais acessadas</h2><ul><li><a href='/utilidades/regra-de-tres'>Regra de três</a></li><li><a href='/utilidades/dias-entre-datas'>Dias entre datas</a></li><li><a href='/utilidades/porcentagem'>Porcentagem</a></li></ul><p><a href='/blog'>Ver conteúdos no blog</a></p><FAQSection items={faqItems} /><FAQSchema items={faqItems} /></section></BaseLayout>
+<BaseLayout title='Utilidades | FazConta' description='Ferramentas úteis para rotina: regra de três, idade, datas, conversões, IMC e porcentagem.'>
+<section class='container section'>
+<h1>Utilidades do FazConta: calculadoras práticas para resolver o dia a dia</h1>
+<p class='lead'>A categoria Utilidades reúne ferramentas rápidas para situações comuns: cálculos de proporção, contagem de tempo, conversões de unidades, indicadores básicos de saúde e percentuais.</p>
+<p>Diferente de páginas genéricas, aqui o foco é resolver dúvidas reais com campos simples, resultado em destaque e explicação curta do cálculo. Isso ajuda quem precisa decidir rápido no celular — seja para organizar uma viagem, ajustar uma receita, conferir um prazo, comparar valores ou acompanhar métricas pessoais.</p>
+<p>Veja quando usar cada calculadora:</p>
+<ul>
+<li><strong>Regra de Três:</strong> ideal para encontrar um valor proporcional a partir de três referências conhecidas.</li>
+<li><strong>Idade Exata:</strong> útil para descobrir anos, meses e dias em uma data de referência, além de total aproximado de dias vividos.</li>
+<li><strong>Dias entre Datas:</strong> ótimo para planejar prazos, viagens e cronogramas com opção de incluir a data final.</li>
+<li><strong>Conversor de Temperatura:</strong> converte entre Celsius, Fahrenheit e Kelvin com fórmula informada.</li>
+<li><strong>Conversor de Medidas:</strong> transforma metro, centímetro, quilômetro e milha com fator de conversão explícito.</li>
+<li><strong>IMC:</strong> calcula índice de massa corporal, classificação e faixa aproximada de peso de referência.</li>
+<li><strong>Porcentagem:</strong> resolve três modos essenciais: parte do total, representatividade e variação percentual.</li>
+</ul>
+<p>Quando falamos de utilidades, pequenos detalhes importam. Um campo mal nomeado ou uma explicação vaga pode induzir a erro. Por isso, cada ferramenta desta seção foi estruturada para tornar a leitura objetiva: você informa o dado, recebe o número principal e entende o raciocínio sem termos desnecessários.</p>
+<p>Também vale reforçar: muitas decisões importantes exigem validação adicional. Os cálculos aqui servem como apoio de planejamento. Em contexto oficial, médico, jurídico ou contratual, confirme sempre as regras específicas do órgão ou profissional responsável.</p>
+<h2>Mais usadas</h2>
+<ul><li><a href='/utilidades/porcentagem'>Porcentagem</a></li><li><a href='/utilidades/regra-de-tres'>Regra de Três</a></li><li><a href='/utilidades/dias-entre-datas'>Dias entre Datas</a></li></ul>
+<h2>Todas as calculadoras</h2>
+<div class='cards-grid'>{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/utilidades/${s}`} description='Ferramenta prática para o cotidiano' badge='Utilidades' icon='utilidades' />)}</div>
+<p><a href='/blog'>Ir para o blog</a> · <a href='/financeiro'>Categoria Financeiro</a> · <a href='/trabalhista'>Categoria Trabalhista</a> · <a href='/saude'>Categoria Saúde</a> · <a href='/matematica'>Categoria Matemática</a></p>
+<FAQSection items={faqItems} /><FAQSchema items={faqItems} />
+</section>
+</BaseLayout>
