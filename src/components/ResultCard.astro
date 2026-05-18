@@ -1,0 +1,15 @@
+---
+interface Props {
+  title: string;
+  value: string;
+  detail?: string;
+}
+
+const { title, value, detail = '' } = Astro.props;
+---
+
+<div class="result-card" aria-live="polite">
+  <p class="result-title">{title}</p>
+  <p class="result-value">{value}</p>
+  {detail && <p class="result-detail">{detail}</p>}
+</div>

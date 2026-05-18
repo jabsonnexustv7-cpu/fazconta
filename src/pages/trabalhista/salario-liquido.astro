@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Salário Líquido | FazConta">
+  <section class="container section calculator-shell">
+    <h1>Calculadora de Salário Líquido</h1>
+    <div class="form-grid">
+      <label>Salário bruto (R$) <input id="bruto" type="number" min="0" step="0.01" /></label>
+      <label>Dependentes <input id="deps" type="number" min="0" value="0" /></label>
+    </div>
+    <button class="btn" id="calc-salario">Calcular</button>
+    <div class="result-card"><p class="result-title">Salário líquido estimado</p><p id="res-salario" class="result-value">R$ 0,00</p><p id="detalhe-salario" class="result-detail"></p></div>
+  </section>
+  <script>
+    const f = (n) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    document.getElementById('calc-salario')?.addEventListener('click', () => {
+      const bruto = Number(document.getElementById('bruto').value || 0);
+      const deps = Number(document.getElementById('deps').value || 0);
+      const inss = bruto <= 1412 ? bruto * 0.075 : bruto <= 2666.68 ? bruto * 0.09 : bruto <= 4000.03 ? bruto * 0.12 : bruto * 0.14;
+      const baseIrrf = Math.max(bruto - inss - deps * 189.59, 0);
+      const irrf = baseIrrf <= 2259.2 ? 0 : baseIrrf <= 2826.65 ? baseIrrf * 0.075 - 169.44 : baseIrrf <= 3751.05 ? baseIrrf * 0.15 - 381.44 : baseIrrf <= 4664.68 ? baseIrrf * 0.225 - 662.77 : baseIrrf * 0.275 - 896;
+      const liquido = bruto - inss - Math.max(irrf, 0);
+      document.getElementById('res-salario').textContent = f(liquido);
+      document.getElementById('detalhe-salario').textContent = `INSS: ${f(inss)} · IRRF: ${f(Math.max(irrf,0))}`;
+    });
+  </script>
+</BaseLayout>

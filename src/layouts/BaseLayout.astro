@@ -1,18 +1,35 @@
 ---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import '../styles/global.css';
-const { title = 'FazConta', description = 'Calculadoras online grátis' } = Astro.props;
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'FazConta | Calculadoras trabalhistas e financeiras',
+  description = 'FazConta oferece calculadoras trabalhistas e financeiras rápidas, precisas e gratuitas.'
+} = Astro.props;
 ---
+
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>{title}</title>
-<meta name="description" content={description} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<link rel="canonical" href={Astro.url.href} />
-</head>
-<body>
-<slot />
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href={Astro.url.href} />
+  </head>
+  <body>
+    <Header />
+    <main class="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>
