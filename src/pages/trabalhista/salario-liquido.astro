@@ -2,14 +2,21 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Salário Líquido | FazConta">
-  <section class="container section calculator-shell">
-    <h1>Calculadora de Salário Líquido</h1>
-    <div class="form-grid">
-      <label>Salário bruto (R$) <input id="bruto" type="number" min="0" step="0.01" /></label>
-      <label>Dependentes <input id="deps" type="number" min="0" value="0" /></label>
-    </div>
-    <button class="btn" id="calc-salario">Calcular</button>
-    <div class="result-card"><p class="result-title">Salário líquido estimado</p><p id="res-salario" class="result-value">R$ 0,00</p><p id="detalhe-salario" class="result-detail"></p></div>
+  <section class="container section calc-layout">
+    <article class="calc-form">
+      <h1>Calculadora de Salário Líquido</h1>
+      <p class="lead">Descubra uma estimativa de salário líquido com INSS e IRRF.</p>
+      <div class="form-grid">
+        <label>Salário bruto (R$) <input id="bruto" type="number" min="0" step="0.01" /></label>
+        <label>Dependentes <input id="deps" type="number" min="0" value="0" /></label>
+      </div>
+      <button class="btn" id="calc-salario">Calcular</button>
+      <p class="calc-warning">Estimativa sujeita a regras vigentes e perfil tributário.</p>
+    </article>
+    <aside class="calc-result">
+      <div class="result-card"><p class="result-title">Salário líquido estimado</p><p id="res-salario" class="result-value">R$ 0,00</p><p id="detalhe-salario" class="result-detail"></p></div>
+      <div class="related-links"><a href="/trabalhista/horas-trabalhadas">Ver horas trabalhadas</a><a href="/trabalhista/ferias">Ver cálculo de férias</a></div>
+    </aside>
   </section>
   <script>
     const f = (n) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
