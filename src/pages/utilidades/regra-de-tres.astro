@@ -1,28 +1,59 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ResultCard from '../../components/ResultCard.astro';
-import AdSlot from '../../components/AdSlot.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import FAQSection from '../../components/FAQSection.astro';
-import CalculatorSEOContent from '../../components/CalculatorSEOContent.astro';
-const pageTitle='Calculadora de Regra De Tres';
-const description='Simule regra de tres com cálculo rápido e visual premium no FazConta.';
-const canonical='https://fazconta.pages.dev/utilidades/regra-de-tres';
-const related=[{href:'/utilidades',label:'Categoria Utilidades'},{href:'/',label:'Home'},{href:'/financeiro/cdi',label:'CDI'},{href:'/utilidades/regra-de-tres',label:'Regra de três'}];
+import AdSlot from '../../components/AdSlot.astro';
+
+const title = 'Calculadora de Regra de Três';
+const description = 'Resolva proporções simples de forma imediata para estudos e rotina.';
 ---
-<BaseLayout title={pageTitle + ' | FazConta'} description={description} canonical={canonical}>
+<BaseLayout title={`${title} | FazConta`} description={description}>
 <section class='container section'>
-<nav class='help-text'><a href='/'>Home</a> / <a href='/utilidades'>Utilidades</a> / Regra De Tres</nav>
-<h1>{pageTitle}</h1><p class='lead'>{description}</p><AdSlot />
-<div class='calc-layout'>
-<form class='calc-form' data-calc='simple'><div class='form-grid'><label>Valor 1<input name='v1' type='number' step='0.01' required /></label><label>Valor 2<input name='v2' type='number' step='0.01' required /></label></div><button class='btn' type='submit'>Calcular</button></form>
-<div class='calc-result'><ResultCard title='Resultado' value='--' detail='Preencha os campos e calcule.' /></div>
-</div>
+<Breadcrumb items={[{label:'Início',href:'/'},{label:'Utilidades',href:'/utilidades'},{label:title}]} />
+<h1>{title}</h1>
+<p class='lead'>{description}</p>
 <AdSlot />
-<h2>Explicação do cálculo</h2><p class='help-text'>Esta versão aplica conta base entre dois valores para apoiar estimativas rápidas.</p>
-<h2>Exemplo prático</h2><p class='help-text'>Com 100 e 20, o resultado retornado é 120.</p>
-<CalculatorSEOContent title={pageTitle} related={related} />
+<form id='calc-form' class='calc-form'></form>
+<div class='result-card' id='resultado'>Preencha os campos para calcular.</div>
+<p class='help-text'><strong>Aviso:</strong> cálculo estimativo para planejamento.</p>
 <AdSlot />
-<FAQSection title={'Dúvidas sobre ' + pageTitle} items={[{ question: 'Este cálculo é oficial?', answer: 'É uma simulação para planejamento.' },{ question: 'Funciona no celular?', answer: 'Sim, com foco em mobile e acessibilidade.' }]} />
+<h2>Como usar esta calculadora</h2><p>Informe os campos solicitados e clique em calcular para obter uma estimativa instantânea.</p>
+<h2>Como o cálculo é feito</h2><p>Utilizamos fórmula simplificada e transparente, com resultado exibido em destaque para facilitar comparação.</p>
+<h2>Exemplo prático</h2><p>Use valores reais do seu cenário para entender impacto mensal e anual com segurança.</p>
+<h2>Páginas relacionadas</h2><ul><li><a href='/utilidades'>Ver categoria utilidades</a></li><li><a href='/financeiro/cdi'>Simulador de CDI</a></li><li><a href='/blog'>Ler artigos do blog</a></li></ul>
+<FAQSection title='Perguntas frequentes' items={[
+{question:'O resultado é oficial?',answer:'Não. É uma estimativa para planejamento pessoal.'},
+{question:'Funciona no celular?',answer:'Sim. A interface foi pensada para uso mobile.'},
+{question:'Posso usar para tomar decisão financeira?',answer:'Pode usar como apoio, mas valide condições oficiais.'},
+{question:'Preciso cadastrar conta?',answer:'Não. O uso é gratuito e imediato.'}
+]} />
 </section>
-<script>document.querySelector('[data-calc="simple"]')?.addEventListener('submit',(e)=>{e.preventDefault();const f=e.currentTarget;const v1=Number(f.v1.value||0);const v2=Number(f.v2.value||0);const target=document.querySelector('.calc-result .result-value'); if(target) target.textContent=(v1+v2).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});});</script>
+<script>
+const form = document.getElementById('calc-form');
+const out = document.getElementById('resultado');
+form.innerHTML = `
+<label>Valor 1<input name='a' type='number' step='0.01' required></label>
+<label>Valor 2<input name='b' type='number' step='0.01' required></label>
+<button class='btn' type='submit'>Calcular</button>`;
+form.addEventListener('submit', (e) => {
+ e.preventDefault();
+ const a = Number(form.a.value||0), b = Number(form.b.value||0);
+ let r='';
+ const k='regra3';
+ if(k==='fgts') r=`Depósito mensal: ${(a*0.08).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})} | Estimativa anual: ${(a*0.96).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;
+ else if(k==='seguro'){ let p=a<=2112? a*0.8: a<=3520? 1689.6+(a-2112)*0.5:2393.6; r=`Parcela estimada: ${Math.min(p,2300).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`; }
+ else if(k==='noturno') r=`Adicional estimado: ${(a*0.2*b).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;
+ else if(k==='vt') r=`Desconto máximo (6%): ${(a*0.06).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;
+ else if(k==='cltpj') r=`CLT: ${(a*0.75).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})} | PJ líquido estimado: ${(b*0.85).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;
+ else if(k==='cdi'||k==='selic'||k==='poupanca'){const m=b/100/12; r=`Montante: ${(a*Math.pow(1+m,12)).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;}
+ else if(k==='emprestimo'){const i=b/100; const n=12; const pm=a*(i*Math.pow(1+i,n))/(Math.pow(1+i,n)-1); r=`Parcela aproximada: ${pm.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;}
+ else if(k==='reserva') r=`Meta de reserva: ${(a*b).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;
+ else if(k==='regra3') r=`Resultado proporcional: ${(b*100/(a||1)).toFixed(2)}`;
+ else if(k==='idade'){const d1=new Date(form.a.value),d2=new Date(form.b.value);const diff=Math.floor((d2-d1)/86400000); r=`Diferença aproximada: ${Math.floor(diff/365)} anos`;}
+ else if(k==='dias'){const d1=new Date(form.a.value),d2=new Date(form.b.value); r=`Dias entre datas: ${Math.floor((d2-d1)/86400000)}`; form.a.type='date'; form.b.type='date';}
+ else if(k==='temp') r=`Conversão: C→F ${(a*9/5+32).toFixed(2)} | C→K ${(a+273.15).toFixed(2)}`;
+ else if(k==='medidas') r=`m: ${a} | cm: ${(a*100)} | km: ${(a/1000)} | milhas: ${(a/1609.34).toFixed(4)}`;
+ out.textContent = r;
+});
+</script>
 </BaseLayout>

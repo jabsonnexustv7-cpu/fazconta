@@ -4,8 +4,8 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import AdSlot from '../../components/AdSlot.astro';
 
-const title = 'Calculadora de Dias entre Datas';
-const description = 'Calcule a diferença em dias entre duas datas rapidamente.';
+const title = 'Conversor de Temperatura';
+const description = 'Converta Celsius, Fahrenheit e Kelvin com precisão instantânea.';
 ---
 <BaseLayout title={`${title} | FazConta`} description={description}>
 <section class='container section'>
@@ -39,7 +39,7 @@ form.addEventListener('submit', (e) => {
  e.preventDefault();
  const a = Number(form.a.value||0), b = Number(form.b.value||0);
  let r='';
- const k='dias';
+ const k='temp';
  if(k==='fgts') r=`Depósito mensal: ${(a*0.08).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})} | Estimativa anual: ${(a*0.96).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;
  else if(k==='seguro'){ let p=a<=2112? a*0.8: a<=3520? 1689.6+(a-2112)*0.5:2393.6; r=`Parcela estimada: ${Math.min(p,2300).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`; }
  else if(k==='noturno') r=`Adicional estimado: ${(a*0.2*b).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;
