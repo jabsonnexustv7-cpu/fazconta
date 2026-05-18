@@ -15,7 +15,7 @@ const cards = ['cdi','selic','poupanca','emprestimo','cartao-de-credito','parcel
     <p>Os resultados ajudam no planejamento, mas não representam promessa de rentabilidade nem oferta de instituição financeira. Taxas, tributos, tarifas e regras mudam com frequência. Sempre confira as condições atualizadas no banco, corretora ou contrato antes de fechar qualquer operação.</p>
 
     <h2>Principais calculadoras financeiras</h2>
-    <div class="cards-grid">{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/financeiro/${s}`} description="Simulador financeiro" badge="Financeiro" icon="💰" />)}</div>
+    <div class="cards-grid">{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/financeiro/${s}`} description="Simulador financeiro" badge="Financeiro" icon="financeiro" />)}</div>
 
     <h2>Trilhas de uso recomendadas</h2>
     <ul>

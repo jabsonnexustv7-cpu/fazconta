@@ -45,7 +45,8 @@ input,select,button{font:inherit}
 .calculator-card{padding:1rem;display:grid;gap:.5rem;transition:transform .18s,box-shadow .18s,border-color .18s}
 .calculator-card:hover{transform:translateY(-2px);border-color:#bfdbfe;box-shadow:0 12px 22px rgba(37,99,235,.12)}
 .card-top{display:flex;justify-content:space-between;align-items:center;gap:.65rem}
-.card-icon{font-size:1.2rem}
+.card-icon{width:2.25rem;height:2.25rem;display:inline-flex;align-items:center;justify-content:center;background:#eff6ff;border-radius:.7rem;flex-shrink:0}
+.card-icon .icon{width:1.25rem;height:1.25rem;display:block}
 .badge{display:inline-flex;align-items:center;background:#eff6ff;color:#1e40af;border-radius:999px;padding:.25rem .6rem;font-size:.77rem;font-weight:700}
 .calculator-card h3{margin:.1rem 0 0;font-size:1.05rem}
 .calculator-card p{margin:0;color:var(--muted)}

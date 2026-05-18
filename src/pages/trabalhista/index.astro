@@ -38,7 +38,7 @@ const cards = ['fgts','hora-extra-noturna','seguro-desemprego','adicional-noturn
           href={`/trabalhista/${slug}`}
           description="Simulação trabalhista"
           badge="Trabalhista"
-          icon="💼"
+          icon={slug === 'ferias' ? 'ferias' : slug === 'rescisao' ? 'rescisao' : slug === 'decimo-terceiro' ? 'decimo' : slug === 'horas-extras' || slug === 'horas-trabalhadas' || slug === 'hora-extra-noturna' ? 'horas-extras' : 'salario'}
         />
       ))}
     </div>
