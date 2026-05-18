@@ -1,48 +1,33 @@
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculadora de Horas Trabalhadas</title>
-    <meta name="description" content="Calcule horas trabalhadas online gratuitamente." />
-  </head>
-  <body style="font-family: Arial, sans-serif; padding:40px; max-width:900px; margin:auto;">
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Horas Trabalhadas | FazConta">
+  <section class="container section calculator-shell">
     <h1>Calculadora de Horas Trabalhadas</h1>
-
-    <label>Entrada</label><br/>
-    <input type="time" id="entrada" /><br/><br/>
-
-    <label>Saída</label><br/>
-    <input type="time" id="saida" /><br/><br/>
-
-    <label>Intervalo (minutos)</label><br/>
-    <input type="number" id="intervalo" value="60" /><br/><br/>
-
-    <button onclick="calcular()">Calcular</button>
-
-    <h2 id="resultado"></h2>
-
-    <script>
-      function calcular() {
-        const entrada = document.getElementById('entrada').value;
-        const saida = document.getElementById('saida').value;
-        const intervalo = Number(document.getElementById('intervalo').value);
-
-        if (!entrada || !saida) {
-          alert('Preencha os horários');
-          return;
-        }
-
-        const [eh, em] = entrada.split(':').map(Number);
-        const [sh, sm] = saida.split(':').map(Number);
-
-        let minutos = (sh * 60 + sm) - (eh * 60 + em);
-        minutos -= intervalo;
-
-        const horas = Math.floor(minutos / 60);
-        const mins = minutos % 60;
-
-        document.getElementById('resultado').innerText = `Total trabalhado: ${horas}h ${mins}min`;
-      }
-    </script>
-  </body>
-</html>
+    <div class="form-grid">
+      <label>Entrada <input id="entrada" type="time" /></label>
+      <label>Saída <input id="saida" type="time" /></label>
+      <label>Intervalo (minutos) <input id="intervalo" type="number" value="60" min="0" /></label>
+    </div>
+    <button class="btn" id="calcular">Calcular</button>
+    <div class="result-card"><p class="result-title">Total trabalhado</p><p id="resultado" class="result-value">--</p></div>
+  </section>
+  <script>
+    const btn = document.getElementById('calcular');
+    btn?.addEventListener('click', () => {
+      const entrada = document.getElementById('entrada').value;
+      const saida = document.getElementById('saida').value;
+      const intervalo = Number(document.getElementById('intervalo').value || 0);
+      if (!entrada || !saida) return alert('Preencha entrada e saída.');
+      const [eh, em] = entrada.split(':').map(Number);
+      const [sh, sm] = saida.split(':').map(Number);
+      let total = (sh * 60 + sm) - (eh * 60 + em);
+      if (total < 0) total += 24 * 60;
+      total -= intervalo;
+      const h = Math.floor(Math.max(total, 0) / 60);
+      const m = Math.max(total, 0) % 60;
+      document.getElementById('resultado').textContent = `${h}h ${String(m).padStart(2, '0')}min`;
+    });
+  </script>
+</BaseLayout>

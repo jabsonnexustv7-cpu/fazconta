@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  badge?: string;
+}
+
+const { title, description, href, badge = 'Calculadora' } = Astro.props;
+---
+
+<a class="calculator-card" href={href}>
+  <span class="badge">{badge}</span>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <strong>Calcular agora →</strong>
+</a>
