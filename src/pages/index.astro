@@ -3,11 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CalculatorCard from '../components/CalculatorCard.astro';
 import FAQSection from '../components/FAQSection.astro';
 const calculators=[
-{title:'FGTS',href:'/trabalhista/fgts',description:'Depósito e acumulado',category:'Trabalhista',icon:'💼'},
-{title:'CDI',href:'/financeiro/cdi',description:'Rendimento composto',category:'Financeiro',icon:'📈'},
-{title:'Regra de três',href:'/utilidades/regra-de-tres',description:'Proporção rápida',category:'Utilidades',icon:'📐'},
-{title:'TMB',href:'/saude/tmb',description:'Taxa metabólica basal',category:'Saúde',icon:'🩺'},
-{title:'Equação do segundo grau',href:'/matematica/equacao-segundo-grau',description:'Bhaskara',category:'Matemática',icon:'🧮'}
+{title:'FGTS',href:'/trabalhista/fgts',description:'Depósito e acumulado',category:'Trabalhista',icon:'salario'},
+{title:'CDI',href:'/financeiro/cdi',description:'Rendimento composto',category:'Financeiro',icon:'financeiro'},
+{title:'Regra de três',href:'/utilidades/regra-de-tres',description:'Proporção rápida',category:'Utilidades',icon:'utilidades'},
+{title:'TMB',href:'/saude/tmb',description:'Taxa metabólica basal',category:'Saúde',icon:'saude'},
+{title:'Equação do segundo grau',href:'/matematica/equacao-segundo-grau',description:'Bhaskara',category:'Matemática',icon:'matematica'}
 ];
 ---
 <BaseLayout title="FazConta | Portal de calculadoras" description="Portal de calculadoras trabalhistas, financeiras, utilidades, saúde e matemática.">
@@ -15,9 +15,9 @@ const calculators=[
 
 <section class="container section"><h2>Calculadoras em destaque</h2><div class="cards-grid" id="all-calcs">{calculators.map((c)=><article data-title={c.title.toLowerCase()} data-description={c.description.toLowerCase()} data-category={c.category.toLowerCase()}><CalculatorCard title={c.title} description={c.description} href={c.href} badge={c.category} icon={c.icon} /></article>)}</div></section>
 
-<section class="container section"><h2>Mais usadas</h2><div class="cards-grid"><CalculatorCard title="Salário líquido" href="/trabalhista/salario-liquido" description="INSS, IRRF e descontos" badge="Trabalhista" icon="🧾" /><CalculatorCard title="Juros compostos" href="/financeiro/juros-compostos" description="Simule aportes e rendimentos" badge="Financeiro" icon="💹" /><CalculatorCard title="IMC" href="/utilidades/imc" description="Avalie sua faixa de peso" badge="Utilidades" icon="⚖️" /></div></section>
+<section class="container section"><h2>Mais usadas</h2><div class="cards-grid"><CalculatorCard title="Salário líquido" href="/trabalhista/salario-liquido" description="INSS, IRRF e descontos" badge="Trabalhista" icon="salario" /><CalculatorCard title="Juros compostos" href="/financeiro/juros-compostos" description="Simule aportes e rendimentos" badge="Financeiro" icon="financeiro" /><CalculatorCard title="IMC" href="/utilidades/imc" description="Avalie sua faixa de peso" badge="Utilidades" icon="saude" /></div></section>
 
-<section class="container section"><h2>Categorias</h2><div class="cards-grid"><CalculatorCard title="Trabalhista" href="/trabalhista" description="Folha e direitos" badge="Categoria" icon="💼" /><CalculatorCard title="Financeiro" href="/financeiro" description="Investimentos e crédito" badge="Categoria" icon="💰" /><CalculatorCard title="Utilidades" href="/utilidades" description="Conversores" badge="Categoria" icon="🛠" /><CalculatorCard title="Saúde" href="/saude" description="Bem-estar" badge="Categoria" icon="🩺" /><CalculatorCard title="Matemática" href="/matematica" description="Operações" badge="Categoria" icon="🧮" /></div></section>
+<section class="container section"><h2>Categorias</h2><div class="cards-grid"><CalculatorCard title="Trabalhista" href="/trabalhista" description="Folha e direitos" badge="Categoria" icon="salario" /><CalculatorCard title="Financeiro" href="/financeiro" description="Investimentos e crédito" badge="Categoria" icon="financeiro" /><CalculatorCard title="Utilidades" href="/utilidades" description="Conversores" badge="Categoria" icon="utilidades" /><CalculatorCard title="Saúde" href="/saude" description="Bem-estar" badge="Categoria" icon="saude" /><CalculatorCard title="Matemática" href="/matematica" description="Operações" badge="Categoria" icon="matematica" /></div></section>
 
 <section class="container section"><h2>Guias úteis</h2><div class="cards-grid">
 <a class="calc-card" href="/blog/como-calcular-salario-liquido"><h3>Como calcular salário líquido</h3></a>

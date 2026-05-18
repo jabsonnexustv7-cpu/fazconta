@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   title: string;
   description: string;
@@ -7,12 +9,12 @@ interface Props {
   icon?: string;
 }
 
-const { title, description, href, badge = 'Calculadora', icon = '◈' } = Astro.props;
+const { title, description, href, badge = 'Calculadora', icon = 'utilidades' } = Astro.props;
 ---
 
 <a class="calculator-card" href={href}>
   <div class="card-top">
-    <span class="card-icon" aria-hidden="true">{icon}</span>
+    <span class="card-icon"><Icon name={icon} decorative={true} /></span>
     <span class="badge">{badge}</span>
   </div>
   <h3>{title}</h3>
