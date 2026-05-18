@@ -2,51 +2,43 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CalculatorCard from '../components/CalculatorCard.astro';
 import FAQSection from '../components/FAQSection.astro';
----
 
-<BaseLayout title="FazConta | Calculadoras com experiência premium" description="Faça simulações trabalhistas em segundos com interface premium e resultados claros.">
+const calculators = [
+  { title: 'Salário Líquido', href: '/trabalhista/salario-liquido', description: 'INSS, IRRF e descontos adicionais.', category: 'Trabalhista', icon: '💼' },
+  { title: 'Horas Trabalhadas', href: '/trabalhista/horas-trabalhadas', description: 'Jornada líquida e saldo diário.', category: 'Trabalhista', icon: '⏱' },
+  { title: 'Férias', href: '/trabalhista/ferias', description: 'Férias com 1/3, abono e descontos.', category: 'Trabalhista', icon: '🌴' },
+  { title: 'Rescisão', href: '/trabalhista/rescisao', description: 'Estimativa de verbas rescisórias.', category: 'Trabalhista', icon: '📄' },
+  { title: 'Décimo Terceiro', href: '/trabalhista/decimo-terceiro', description: 'Cálculo da 1ª e 2ª parcela.', category: 'Trabalhista', icon: '🎁' },
+  { title: 'Horas Extras', href: '/trabalhista/horas-extras', description: 'HE 50%, 100% e noturna.', category: 'Trabalhista', icon: '⚡' },
+  { title: 'Juros Compostos', href: '/financeiro/juros-compostos', description: 'Projeção com aportes e evolução anual.', category: 'Financeiro', icon: '📈' },
+  { title: 'Financiamento', href: '/financeiro/financiamento', description: 'Parcela estimada e visão de amortização.', category: 'Financeiro', icon: '🏠' },
+  { title: 'IMC', href: '/utilidades/imc', description: 'IMC, classificação e peso ideal.', category: 'Utilidades', icon: '🩺' },
+  { title: 'Porcentagem', href: '/utilidades/porcentagem', description: '3 modos de cálculo percentual.', category: 'Utilidades', icon: '🧮' }
+];
+---
+<BaseLayout title="FazConta | Calculadoras trabalhistas, financeiras e utilidades" description="Plataforma premium com calculadoras trabalhistas, financeiras e utilidades em um só lugar.">
   <section class="hero container">
     <div>
-      <span class="hero-chip">Plataforma de cálculo inteligente</span>
-      <h1>Faça contas complexas com clareza de produto premium.</h1>
-      <p>O FazConta combina velocidade, design moderno e resultados objetivos para te ajudar a decidir melhor no dia a dia financeiro e trabalhista.</p>
-      <div class="hero-actions">
-        <a class="btn" href="/trabalhista">Usar calculadora</a>
-        <a class="btn btn-ghost" href="#mais-acessadas">Ver mais acessadas</a>
-      </div>
-      <div class="search-shell">
-        <input type="search" placeholder="Busque uma calculadora: salário, férias, horas..." aria-label="Buscar calculadoras" />
-      </div>
+      <span class="hero-chip">Cálculos com UX premium</span>
+      <h1>Encontre a calculadora ideal em segundos.</h1>
+      <p>Busque por tema e simule resultados com visual claro, SEO técnico e foco mobile.</p>
+      <div class="search-shell"><input id="search-calc" type="search" placeholder="Busque: férias, juros, porcentagem..." /></div>
     </div>
-    <aside class="hero-panel">
-      <p class="result-title">Resultado estimado</p>
-      <p class="result-value">R$ 4.283,40</p>
-      <div class="result-split">
-        <div><span>INSS</span><strong>R$ 512,00</strong></div>
-        <div><span>IRRF</span><strong>R$ 204,60</strong></div>
-        <div><span>Líquido</span><strong>R$ 3.566,80</strong></div>
-      </div>
-      <small>Simulação visual para demonstrar o formato dos resultados.</small>
-    </aside>
+    <aside class="hero-panel"><p class="result-title">Total disponível</p><p class="result-value">10 calculadoras</p></aside>
   </section>
-
-  <section class="container section" id="mais-acessadas">
-    <div class="section-head"><h2>Mais acessadas</h2></div>
-    <div class="cards-grid">
-      <CalculatorCard icon="⏱" title="Horas Trabalhadas" description="Calcule jornada líquida com intervalo e virada de turno." href="/trabalhista/horas-trabalhadas" badge="Jornada" />
-      <CalculatorCard icon="💼" title="Salário Líquido" description="Simule descontos e veja o valor aproximado na conta." href="/trabalhista/salario-liquido" badge="Salário" />
-      <CalculatorCard icon="🌴" title="Férias" description="Estime férias com adicional de 1/3 e abono." href="/trabalhista/ferias" badge="Benefício" />
-    </div>
-  </section>
-
-  <section class="container section why">
-    <div class="section-head"><h2>Por que usar o FazConta</h2></div>
-    <div class="why-grid">
-      <article><h3>Experiência fluida</h3><p>Layout limpo, foco total no cálculo e leitura rápida dos números.</p></article>
-      <article><h3>Estimativa transparente</h3><p>Você entende cada etapa do resultado com divisão clara por componentes.</p></article>
-      <article><h3>Feito para mobile</h3><p>Botões grandes, textos legíveis e estrutura elegante em qualquer tela.</p></article>
-    </div>
-  </section>
-
+  <section class="container section" id="mais-acessadas"><div class="section-head"><h2>Mais acessadas</h2></div><div class="cards-grid">{calculators.slice(0,4).map((c)=><CalculatorCard title={c.title} description={c.description} href={c.href} badge={c.category} icon={c.icon} />)}</div></section>
+  <section class="container section"><div class="section-head"><h2>Novas calculadoras</h2></div><div class="cards-grid">{calculators.slice(3,8).map((c)=><CalculatorCard title={c.title} description={c.description} href={c.href} badge={c.category} icon={c.icon} />)}</div></section>
+  <section class="container section"><div class="section-head"><h2>Todas as calculadoras</h2></div><div class="cards-grid" id="all-calcs">{calculators.map((c)=><article data-title={c.title.toLowerCase()} data-description={c.description.toLowerCase()}><CalculatorCard title={c.title} description={c.description} href={c.href} badge={c.category} icon={c.icon} /></article>)}</div></section>
   <div class="container"><FAQSection /></div>
+  <script>
+    const input = document.getElementById('search-calc');
+    const items = document.querySelectorAll('#all-calcs article');
+    input?.addEventListener('input', () => {
+      const query = input.value.toLowerCase().trim();
+      items.forEach((item) => {
+        const show = item.dataset.title.includes(query) || item.dataset.description.includes(query);
+        item.style.display = show ? '' : 'none';
+      });
+    });
+  </script>
 </BaseLayout>
