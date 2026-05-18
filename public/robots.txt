@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fazconta.com/sitemap-index.xml
+Sitemap: https://fazconta.pages.dev/sitemap-index.xml

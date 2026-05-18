@@ -19,6 +19,16 @@ const {
     { question: 'Os resultados têm validade jurídica?', answer: 'Os resultados são estimativas para apoio. Para decisões formais, valide com um profissional.' }
   ]
 } = Astro.props;
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer }
+  }))
+};
 ---
 <section class="faq section">
   <div class="section-head">
@@ -33,4 +43,5 @@ const {
       </article>
     ))}
   </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
 </section>
