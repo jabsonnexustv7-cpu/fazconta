@@ -4,6 +4,65 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import FAQSchema from '../../components/FAQSchema.astro';
 import AdSlot from '../../components/AdSlot.astro';
-const faqItems=[{question:'O resultado é oficial?',answer:'Não. É uma simulação para planejamento.'},{question:'Posso usar no celular?',answer:'Sim, a calculadora funciona em dispositivos móveis.'},{question:'Este cálculo substitui análise profissional?',answer:'Não. Use como apoio e valide condições reais.'},{question:'Os valores têm arredondamento?',answer:'Sim, para facilitar leitura em reais e percentuais.'}];
+
+const faqItems = [
+  { question: '100% do CDI sempre rende igual em qualquer banco?', answer: 'Não. O percentual de CDI pode ser igual, mas existem diferenças de prazo, liquidez, risco de crédito, cobrança de taxas e incidência de imposto conforme o produto.' },
+  { question: 'Posso usar CDI para comparar CDB e conta remunerada?', answer: 'Sim. A simulação ajuda na comparação inicial, mas vale confirmar carência, liquidez diária, garantia do FGC e regras de resgate antes de decidir.' },
+  { question: 'Por que o rendimento líquido pode ficar bem menor que o bruto?', answer: 'Porque o valor líquido considera descontos aproximados de impostos. Quanto menor o prazo, maior costuma ser o impacto do IR sobre o rendimento.' },
+  { question: 'Aporte mensal melhora muito o resultado final?', answer: 'Geralmente sim. Aportes frequentes aumentam a base que rende juros compostos e tendem a acelerar o crescimento do patrimônio ao longo do tempo.' }
+];
 ---
-<BaseLayout title="Simulador de CDI | FazConta" description="Projete rendimento por percentual do CDI e prazo."><section class='container section'><Breadcrumb items={[{label:'Início',href:'/'},{label:'Financeiro',href:'/financeiro'},{label:'Simulador de CDI'}]} /><h1>Simulador de CDI</h1><p class='lead'>Projete rendimento por percentual do CDI e prazo.</p><p class='help-text'><strong>Aviso:</strong> cálculo estimativo para planejamento.</p><AdSlot /><div class='form-grid'><label>Valor inicial (R$)<input id='ap' type='number' step='0.01' value='1000'></label><label>Aporte mensal (R$)<input id='am' type='number' step='0.01' value='0'></label><label>% do CDI ao ano<input id='tx' type='number' step='0.01' value='100'></label><label>Prazo (meses)<input id='n' type='number' step='1' value='12'></label></div><button class='btn' id='calc'>Calcular</button><div class='result-card'><p class='result-title'>Resultado</p><p class='result-value' id='res'>-</p><p class='result-detail' id='det'></p></div><h2>Como usar esta calculadora</h2><p>Preencha os campos com seus valores reais e clique em calcular.</p><h2>Como o cálculo é feito</h2><p>Aplicamos fórmula financeira/matemática padrão com exibição do breakdown.</p><h2>Exemplo prático</h2><p>Teste com valores próximos da sua realidade para comparar cenários.</p><h2>Calculadoras relacionadas</h2><ul><li><a href='/financeiro/selic'>selic</a></li><li><a href='/financeiro/juros-compostos'>juros compostos</a></li><li><a href='/financeiro/poupanca'>poupanca</a></li><li><a href='/financeiro'>Ver categoria financeiro</a></li><li><a href='/blog'>Ver blog</a></li></ul><FAQSection items={faqItems} /><FAQSchema items={faqItems} /></section><script>const f=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});calc.onclick=()=>{const p=+ap.value||0,m=+am.value||0,i=((+tx.value||0)/100)/12,t=+n.value||0;let mont=p;for(let k=0;k<t;k++)mont=(mont+m)*(1+i);res.textContent=f(mont);det.textContent=`Total investido ${f(p+m*t)} · Rendimentos ${f(mont-(p+m*t))}`};</script></BaseLayout>
+<BaseLayout title="Simulador de CDI | FazConta" description="Simule investimento em CDI com aporte mensal, percentual do CDI e prazo em meses.">
+  <section class="container section">
+    <Breadcrumb items={[{ label: 'Início', href: '/' }, { label: 'Financeiro', href: '/financeiro' }, { label: 'Simulador de CDI' }]} />
+    <h1>Simulador de CDI</h1>
+    <p class="lead">Projeção de investimento com valor inicial, aportes mensais, percentual do CDI e prazo.</p>
+    <p class="help-text"><strong>Aviso:</strong> cálculo estimativo para planejamento financeiro, não é recomendação de investimento.</p>
+    <AdSlot />
+    <div class="form-grid">
+      <label>Valor inicial (R$)<input id="valorInicial" type="number" step="0.01" value="5000"></label>
+      <label>Aporte mensal (R$)<input id="aporteMensal" type="number" step="0.01" value="500"></label>
+      <label>Percentual do CDI (%)<input id="percentualCdi" type="number" step="0.01" value="100"></label>
+      <label>CDI anual estimado (%)<input id="cdiAnual" type="number" step="0.01" value="10.65"></label>
+      <label>Prazo (meses)<input id="prazoMeses" type="number" step="1" value="24"></label>
+    </div>
+    <button class="btn" id="calcularCdi">Calcular</button>
+    <div class="result-card">
+      <p class="result-title">Montante final estimado</p>
+      <p class="result-value" id="montanteFinal">-</p>
+      <p class="result-detail" id="breakdownCdi">Preencha os campos e clique em calcular.</p>
+    </div>
+
+    <h2>Entenda o cálculo do CDI na prática</h2><p>O CDI é uma taxa de referência muito usada...</p><p>Quando você vê “100% do CDI”, ...</p><p>Interprete o resultado da simulação separando ...</p><p>Esta simulação considera taxa média constante ...</p><p>Ao fazer comparações, use o mesmo prazo ...</p><p>Para planejamentos de médio prazo ...</p><p>Se o objetivo é reserva ...</p><p>O ponto mais importante é ...</p>
+
+    <h2>Calculadoras relacionadas</h2>
+    <ul>
+      <li><a href="/financeiro/selic">Simulador de Selic</a></li>
+      <li><a href="/financeiro/juros-compostos">Calculadora de Juros Compostos</a></li>
+      <li><a href="/financeiro/poupanca">Simulador de Poupança</a></li>
+      <li><a href="/financeiro">Ver categoria Financeiro</a></li>
+      <li><a href="/blog">Ler artigos do blog</a></li>
+    </ul>
+    <FAQSection items={faqItems} />
+    <FAQSchema items={faqItems} />
+  </section>
+  <script>
+    const formatarMoeda = (n) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const calcularAliquota = (meses) => (meses <= 6 ? 0.225 : meses <= 12 ? 0.2 : meses <= 24 ? 0.175 : 0.15);
+    calcularCdi.onclick = () => {
+      const inicial = +valorInicial.value || 0;
+      const aporte = +aporteMensal.value || 0;
+      const percCdi = (+percentualCdi.value || 0) / 100;
+      const cdi = (+cdiAnual.value || 0) / 100;
+      const meses = Math.max(0, +prazoMeses.value || 0);
+      const taxaMensal = Math.pow(1 + cdi * percCdi, 1 / 12) - 1;
+      let saldo = inicial;
+      for (let i = 0; i < meses; i++) saldo = (saldo + aporte) * (1 + taxaMensal);
+      const investido = inicial + aporte * meses;
+      const bruto = saldo - investido;
+      const liquido = bruto * (1 - calcularAliquota(meses));
+      montanteFinal.textContent = formatarMoeda(saldo);
+      breakdownCdi.textContent = `Total investido: ${formatarMoeda(investido)} · Rendimento estimado: ${formatarMoeda(bruto)} · Rentabilidade líquida aproximada: ${formatarMoeda(liquido)}`;
+    };
+  </script>
+</BaseLayout>
