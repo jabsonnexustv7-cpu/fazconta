@@ -3,15 +3,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Horas Trabalhadas | FazConta">
-  <section class="container section calculator-shell">
-    <h1>Calculadora de Horas Trabalhadas</h1>
-    <div class="form-grid">
-      <label>Entrada <input id="entrada" type="time" /></label>
-      <label>Saída <input id="saida" type="time" /></label>
-      <label>Intervalo (minutos) <input id="intervalo" type="number" value="60" min="0" /></label>
-    </div>
-    <button class="btn" id="calcular">Calcular</button>
-    <div class="result-card"><p class="result-title">Total trabalhado</p><p id="resultado" class="result-value">--</p></div>
+  <section class="container section calc-layout">
+    <article class="calc-form">
+      <h1>Calculadora de Horas Trabalhadas</h1>
+      <p class="lead">Informe entrada, saída e intervalo para estimar sua jornada líquida diária.</p>
+      <div class="form-grid">
+        <label>Entrada <input id="entrada" type="time" /></label>
+        <label>Saída <input id="saida" type="time" /></label>
+        <label>Intervalo (minutos) <input id="intervalo" type="number" value="60" min="0" /></label>
+      </div>
+      <button class="btn" id="calcular">Calcular</button>
+      <p class="calc-warning">Cálculo estimativo para apoio informativo.</p>
+    </article>
+    <aside class="calc-result">
+      <div class="result-card"><p class="result-title">Total trabalhado</p><p id="resultado" class="result-value">--</p></div>
+      <div class="related-links"><a href="/trabalhista/salario-liquido">Ver salário líquido</a><a href="/trabalhista/ferias">Ver cálculo de férias</a></div>
+    </aside>
   </section>
   <script>
     const btn = document.getElementById('calcular');
