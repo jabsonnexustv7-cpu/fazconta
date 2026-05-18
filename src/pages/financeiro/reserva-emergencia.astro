@@ -4,12 +4,12 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import AdSlot from '../../components/AdSlot.astro';
 
-const title = 'Calculadora de Dias entre Datas';
-const description = 'Calcule a diferença em dias entre duas datas rapidamente.';
+const title = 'Calculadora de Reserva de Emergência';
+const description = 'Defina meta de reserva com base no custo mensal e meses de proteção.';
 ---
 <BaseLayout title={`${title} | FazConta`} description={description}>
 <section class='container section'>
-<Breadcrumb items={[{label:'Início',href:'/'},{label:'Utilidades',href:'/utilidades'},{label:title}]} />
+<Breadcrumb items={[{label:'Início',href:'/'},{label:'Financeiro',href:'/financeiro'},{label:title}]} />
 <h1>{title}</h1>
 <p class='lead'>{description}</p>
 <AdSlot />
@@ -20,7 +20,7 @@ const description = 'Calcule a diferença em dias entre duas datas rapidamente.'
 <h2>Como usar esta calculadora</h2><p>Informe os campos solicitados e clique em calcular para obter uma estimativa instantânea.</p>
 <h2>Como o cálculo é feito</h2><p>Utilizamos fórmula simplificada e transparente, com resultado exibido em destaque para facilitar comparação.</p>
 <h2>Exemplo prático</h2><p>Use valores reais do seu cenário para entender impacto mensal e anual com segurança.</p>
-<h2>Páginas relacionadas</h2><ul><li><a href='/utilidades'>Ver categoria utilidades</a></li><li><a href='/financeiro/cdi'>Simulador de CDI</a></li><li><a href='/blog'>Ler artigos do blog</a></li></ul>
+<h2>Páginas relacionadas</h2><ul><li><a href='/financeiro'>Ver categoria financeiro</a></li><li><a href='/financeiro/cdi'>Simulador de CDI</a></li><li><a href='/blog'>Ler artigos do blog</a></li></ul>
 <FAQSection title='Perguntas frequentes' items={[
 {question:'O resultado é oficial?',answer:'Não. É uma estimativa para planejamento pessoal.'},
 {question:'Funciona no celular?',answer:'Sim. A interface foi pensada para uso mobile.'},
@@ -39,7 +39,7 @@ form.addEventListener('submit', (e) => {
  e.preventDefault();
  const a = Number(form.a.value||0), b = Number(form.b.value||0);
  let r='';
- const k='dias';
+ const k='reserva';
  if(k==='fgts') r=`Depósito mensal: ${(a*0.08).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})} | Estimativa anual: ${(a*0.96).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;
  else if(k==='seguro'){ let p=a<=2112? a*0.8: a<=3520? 1689.6+(a-2112)*0.5:2393.6; r=`Parcela estimada: ${Math.min(p,2300).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`; }
  else if(k==='noturno') r=`Adicional estimado: ${(a*0.2*b).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;
