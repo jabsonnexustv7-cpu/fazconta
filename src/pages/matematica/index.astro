@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';import CalculatorCard from '../../components/CalculatorCard.astro';import FAQSection from '../../components/FAQSection.astro';
+const cards=['equacao-segundo-grau','mdc-mmc','media','porcentagem-avancada','fracoes','juros-simples','area-figuras-geometricas'];
+---
+<BaseLayout title="Calculadoras de Matemática | FazConta" description="Bhaskara, média, frações e mais."><section class="container section"><h1>Calculadoras de Matemática</h1><p class="lead">Cálculos matemáticos para estudos e trabalho.</p><div class="cards-grid">{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/matematica/${s}`} description="Cálculo matemático" badge="Matemática" icon="🧮" />)}</div></section><div class="container"><FAQSection title="FAQ matemática" /></div></BaseLayout>

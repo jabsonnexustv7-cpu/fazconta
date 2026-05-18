@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';import CalculatorCard from '../../components/CalculatorCard.astro';import FAQSection from '../../components/FAQSection.astro';
+const cards=['tmb','agua-diaria','peso-ideal','percentual-de-gordura','calorias-diarias'];
+---
+<BaseLayout title="Calculadoras de Saúde | FazConta" description="TMB, água diária, peso ideal e mais."><section class="container section"><h1>Calculadoras de Saúde</h1><p class="lead">Indicadores para apoiar sua rotina de bem-estar.</p><div class="cards-grid">{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/saude/${s}`} description="Simulação de saúde" badge="Saúde" icon="🩺" />)}</div></section><div class="container"><FAQSection title="FAQ saúde" /></div></BaseLayout>

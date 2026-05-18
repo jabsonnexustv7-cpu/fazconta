@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CalculatorCard from '../../components/CalculatorCard.astro';
-const cards=[['Horas Trabalhadas','/trabalhista/horas-trabalhadas','Jornada líquida diária.','⏱'],['Salário Líquido','/trabalhista/salario-liquido','INSS, IRRF e descontos.','💼'],['Férias','/trabalhista/ferias','Férias + 1/3 + abono.','🌴'],['Rescisão','/trabalhista/rescisao','Verbas na demissão.','📄'],['Décimo Terceiro','/trabalhista/decimo-terceiro','Parcelas e descontos estimados.','🎁'],['Horas Extras','/trabalhista/horas-extras','50%, 100% e noturnas.','⚡']];
+import FAQSection from '../../components/FAQSection.astro';
+const cards=['fgts','hora-extra-noturna','seguro-desemprego','adicional-noturno','vale-transporte','conversao-clt-pj','custo-funcionario','horas-trabalhadas','salario-liquido','ferias','rescisao','decimo-terceiro','horas-extras'];
 ---
-<BaseLayout title="Calculadoras Trabalhistas | FazConta" description="Calculadoras trabalhistas para salário líquido, férias, rescisão, décimo terceiro e horas extras.">
-<section class="container section"><h1>Calculadoras Trabalhistas</h1><p class="lead">Simulações estimativas para rotina de RH, departamento pessoal e planejamento do trabalhador.</p><div class="cards-grid">{cards.map((c)=><CalculatorCard title={c[0]} href={c[1]} description={c[2]} icon={c[3]} badge="Trabalhista" />)}</div></section>
+<BaseLayout title="Calculadoras Trabalhistas | FazConta" description="FGTS, seguro-desemprego, salário líquido, férias e muito mais.">
+<section class="container section"><h1>Calculadoras Trabalhistas</h1><p class="lead">Simuladores para departamento pessoal e planejamento do trabalhador.</p><div class="cards-grid">{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/trabalhista/${s}`} description="Simulação trabalhista" badge="Trabalhista" icon="💼" />)}</div></section>
+<div class="container"><FAQSection title="FAQ trabalhista" /></div>
 </BaseLayout>

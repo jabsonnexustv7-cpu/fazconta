@@ -2,43 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CalculatorCard from '../components/CalculatorCard.astro';
 import FAQSection from '../components/FAQSection.astro';
-
-const calculators = [
-  { title: 'Salário Líquido', href: '/trabalhista/salario-liquido', description: 'INSS, IRRF e descontos adicionais.', category: 'Trabalhista', icon: '💼' },
-  { title: 'Horas Trabalhadas', href: '/trabalhista/horas-trabalhadas', description: 'Jornada líquida e saldo diário.', category: 'Trabalhista', icon: '⏱' },
-  { title: 'Férias', href: '/trabalhista/ferias', description: 'Férias com 1/3, abono e descontos.', category: 'Trabalhista', icon: '🌴' },
-  { title: 'Rescisão', href: '/trabalhista/rescisao', description: 'Estimativa de verbas rescisórias.', category: 'Trabalhista', icon: '📄' },
-  { title: 'Décimo Terceiro', href: '/trabalhista/decimo-terceiro', description: 'Cálculo da 1ª e 2ª parcela.', category: 'Trabalhista', icon: '🎁' },
-  { title: 'Horas Extras', href: '/trabalhista/horas-extras', description: 'HE 50%, 100% e noturna.', category: 'Trabalhista', icon: '⚡' },
-  { title: 'Juros Compostos', href: '/financeiro/juros-compostos', description: 'Projeção com aportes e evolução anual.', category: 'Financeiro', icon: '📈' },
-  { title: 'Financiamento', href: '/financeiro/financiamento', description: 'Parcela estimada e visão de amortização.', category: 'Financeiro', icon: '🏠' },
-  { title: 'IMC', href: '/utilidades/imc', description: 'IMC, classificação e peso ideal.', category: 'Utilidades', icon: '🩺' },
-  { title: 'Porcentagem', href: '/utilidades/porcentagem', description: '3 modos de cálculo percentual.', category: 'Utilidades', icon: '🧮' }
+const calculators=[
+{title:'FGTS',href:'/trabalhista/fgts',description:'Depósito e acumulado',category:'Trabalhista',icon:'💼'},
+{title:'CDI',href:'/financeiro/cdi',description:'Rendimento composto',category:'Financeiro',icon:'📈'},
+{title:'Regra de três',href:'/utilidades/regra-de-tres',description:'Proporção rápida',category:'Utilidades',icon:'📐'},
+{title:'TMB',href:'/saude/tmb',description:'Taxa metabólica basal',category:'Saúde',icon:'🩺'},
+{title:'Equação do segundo grau',href:'/matematica/equacao-segundo-grau',description:'Bhaskara',category:'Matemática',icon:'🧮'}
 ];
 ---
-<BaseLayout title="FazConta | Calculadoras trabalhistas, financeiras e utilidades" description="Plataforma premium com calculadoras trabalhistas, financeiras e utilidades em um só lugar.">
-  <section class="hero container">
-    <div>
-      <span class="hero-chip">Cálculos com UX premium</span>
-      <h1>Encontre a calculadora ideal em segundos.</h1>
-      <p>Busque por tema e simule resultados com visual claro, SEO técnico e foco mobile.</p>
-      <div class="search-shell"><input id="search-calc" type="search" placeholder="Busque: férias, juros, porcentagem..." /></div>
-    </div>
-    <aside class="hero-panel"><p class="result-title">Total disponível</p><p class="result-value">10 calculadoras</p></aside>
-  </section>
-  <section class="container section" id="mais-acessadas"><div class="section-head"><h2>Mais acessadas</h2></div><div class="cards-grid">{calculators.slice(0,4).map((c)=><CalculatorCard title={c.title} description={c.description} href={c.href} badge={c.category} icon={c.icon} />)}</div></section>
-  <section class="container section"><div class="section-head"><h2>Novas calculadoras</h2></div><div class="cards-grid">{calculators.slice(3,8).map((c)=><CalculatorCard title={c.title} description={c.description} href={c.href} badge={c.category} icon={c.icon} />)}</div></section>
-  <section class="container section"><div class="section-head"><h2>Todas as calculadoras</h2></div><div class="cards-grid" id="all-calcs">{calculators.map((c)=><article data-title={c.title.toLowerCase()} data-description={c.description.toLowerCase()}><CalculatorCard title={c.title} description={c.description} href={c.href} badge={c.category} icon={c.icon} /></article>)}</div></section>
-  <div class="container"><FAQSection /></div>
-  <script>
-    const input = document.getElementById('search-calc');
-    const items = document.querySelectorAll('#all-calcs article');
-    input?.addEventListener('input', () => {
-      const query = input.value.toLowerCase().trim();
-      items.forEach((item) => {
-        const show = item.dataset.title.includes(query) || item.dataset.description.includes(query);
-        item.style.display = show ? '' : 'none';
-      });
-    });
-  </script>
+<BaseLayout title="FazConta | Portal de calculadoras" description="Portal premium de calculadoras trabalhistas, financeiras, utilidades, saúde e matemática.">
+<section class="hero container"><div><span class="hero-chip">Portal completo</span><h1>Calculadoras inteligentes para decisões melhores.</h1><p>Busque por título, descrição ou categoria e encontre resultados imediatos.</p><div class="search-shell"><input id="search-calc" type="search" placeholder="Ex: FGTS, CDI, IMC..." /></div></div><aside class="hero-panel"><p class="result-title">Categorias</p><p class="result-value">5 áreas</p></aside></section>
+<section class="container section"><h2>Categorias</h2><div class="cards-grid"><CalculatorCard title="Trabalhista" href="/trabalhista" description="Folha e direitos" badge="Categoria" icon="💼" /><CalculatorCard title="Financeiro" href="/financeiro" description="Investimentos e crédito" badge="Categoria" icon="💰" /><CalculatorCard title="Utilidades" href="/utilidades" description="Conversores" badge="Categoria" icon="🛠" /><CalculatorCard title="Saúde" href="/saude" description="Bem-estar" badge="Categoria" icon="🩺" /><CalculatorCard title="Matemática" href="/matematica" description="Operações" badge="Categoria" icon="🧮" /></div></section>
+<section class="container section"><h2>Calculadoras populares</h2><div class="cards-grid" id="all-calcs">{calculators.map((c)=><article data-title={c.title.toLowerCase()} data-description={c.description.toLowerCase()} data-category={c.category.toLowerCase()}><CalculatorCard title={c.title} description={c.description} href={c.href} badge={c.category} icon={c.icon} /></article>)}</div></section>
+<div class="container"><FAQSection title="FAQ FazConta" subtitle="Tudo para usar as calculadoras com segurança." /></div>
+<script>const input=document.getElementById('search-calc');const items=document.querySelectorAll('#all-calcs article');input?.addEventListener('input',()=>{const q=input.value.toLowerCase().trim();items.forEach((i)=>{i.style.display=[i.dataset.title,i.dataset.description,i.dataset.category].some((v)=>v.includes(q))?'':'none';});});</script>
 </BaseLayout>
