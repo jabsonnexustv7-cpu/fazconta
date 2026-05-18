@@ -1,0 +1,29 @@
+---
+interface Props { title: string; related?: {href:string;label:string}[] }
+const { title, related = [] } = Astro.props;
+---
+<section class="section container prose">
+  <h2>Como usar esta calculadora</h2>
+  <p>
+    A calculadora de {title} do FazConta foi criada para oferecer uma simulação rápida, clara e confiável para decisões do dia a dia.
+    Para obter um resultado mais preciso, comece preenchendo todos os campos com os valores reais do seu cenário. Sempre que possível,
+    use dados atualizados, como salário bruto, taxas, prazos, datas e descontos efetivamente aplicados. Depois, clique em <strong>Calcular</strong>
+    para visualizar o resultado principal em destaque e também o detalhamento da conta.
+  </p>
+  <p>
+    O detalhamento ajuda você a entender cada etapa do cálculo, facilitando conferências e ajustes. Se o resultado não ficar como esperado,
+    revise os campos numéricos, especialmente casas decimais, períodos e percentuais. Pequenas variações nesses dados podem gerar diferenças
+    relevantes no valor final. Em contextos trabalhistas e financeiros, recomendamos usar este simulador como apoio para planejamento,
+    comparação de cenários e preparação de decisões, sem substituir validação técnica quando necessária.
+  </p>
+  <p>
+    No mobile, a experiência foi otimizada para preenchimento rápido, com foco em legibilidade, contraste e hierarquia visual. Você pode testar
+    diferentes combinações e repetir a simulação quantas vezes quiser, sem cadastro. Para continuar explorando, use os links relacionados abaixo
+    e compare resultados entre calculadoras complementares do FazConta. Isso melhora sua visão geral e ajuda a tomar decisões com mais segurança.
+  </p>
+  {related.length > 0 && (
+    <div class="related-links" aria-label="Calculadoras relacionadas">
+      {related.map((item) => <a href={item.href}>{item.label}</a>)}
+    </div>
+  )}
+</section>
