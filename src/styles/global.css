@@ -23,9 +23,8 @@ input,select,button{font:inherit}
 
 .header{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);background:rgba(255,255,255,.95);backdrop-filter:blur(6px)}
 .header-inner{min-height:72px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem}
-.logo{display:inline-flex;align-items:center;gap:.55rem;font-size:1.18rem;font-weight:800;color:#0f172a}
-.logo-mark{display:grid;place-items:center;color:var(--primary);width:2rem;height:2rem;border-radius:10px;background:#dbeafe}
-.logo-mark svg{width:20px;height:20px}
+.logo{display:inline-flex;align-items:center;color:#0f172a;max-width:min(46vw,320px)}
+.logo img{display:block;width:100%;height:auto;max-height:48px;object-fit:contain}
 .nav{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
 .nav a{color:var(--muted);font-weight:600;padding:.35rem .5rem;border-radius:8px;transition:background .2s,color .2s}
 .nav a:hover,.nav a:focus-visible{background:#eff6ff;color:var(--primary)}
@@ -81,6 +80,7 @@ input:focus-visible,select:focus-visible{outline:2px solid #93c5fd;outline-offse
 @media (max-width:760px){
   .header-inner{grid-template-columns:1fr;min-height:auto;padding:.75rem 0}
   .nav{justify-content:flex-start;overflow-x:auto;white-space:nowrap;flex-wrap:nowrap;padding-bottom:.15rem}
+  .logo{max-width:240px}
   .btn-header,.btn{width:100%;justify-content:center}
   .cards-grid{grid-template-columns:1fr}
   .footer-inner{flex-direction:column;text-align:center;padding:1rem 0}
