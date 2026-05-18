@@ -2,9 +2,67 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CalculatorCard from '../../components/CalculatorCard.astro';
 import FAQSection from '../../components/FAQSection.astro';
-const cards=['fgts','hora-extra-noturna','seguro-desemprego','adicional-noturno','vale-transporte','conversao-clt-pj','custo-funcionario','horas-trabalhadas','salario-liquido','ferias','rescisao','decimo-terceiro','horas-extras'];
+
+const cards = ['fgts','hora-extra-noturna','seguro-desemprego','adicional-noturno','vale-transporte','conversao-clt-pj','custo-funcionario','horas-trabalhadas','salario-liquido','ferias','rescisao','decimo-terceiro','horas-extras'];
 ---
-<BaseLayout title="Calculadoras Trabalhistas | FazConta" description="FGTS, seguro-desemprego, salário líquido, férias e muito mais.">
-<section class="container section"><h1>Calculadoras Trabalhistas</h1><p class="lead">Simuladores para departamento pessoal e planejamento do trabalhador.</p><div class="cards-grid">{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/trabalhista/${s}`} description="Simulação trabalhista" badge="Trabalhista" icon="💼" />)}</div></section>
-<div class="container"><FAQSection title="FAQ trabalhista" /></div>
+
+<BaseLayout
+  title="Calculadoras Trabalhistas para CLT e RH | FazConta"
+  description="Simule salário líquido, férias, FGTS, rescisão e horas extras com explicações claras para trabalhadores e profissionais de RH."
+>
+  <section class="container section">
+    <h1>Ferramentas trabalhistas para planejar salários, benefícios e direitos</h1>
+    <p class="lead">Esta categoria reúne calculadoras úteis para rotinas de trabalhador CLT, departamento pessoal e pequenas empresas.</p>
+
+    <p>
+      As calculadoras trabalhistas do FazConta ajudam você a estimar valores comuns da relação de trabalho: salário líquido, férias,
+      rescisão, FGTS, horas extras e outros adicionais. O objetivo é facilitar o planejamento, reduzir dúvidas do dia a dia e tornar
+      mais simples a conferência de cenários antes de uma decisão importante.
+    </p>
+    <p>
+      Você pode usar essas ferramentas em situações como negociação de proposta, organização do orçamento mensal, preparação para desligamento
+      ou conferência de descontos no holerite. Em vez de depender apenas de contas manuais, você preenche os campos principais e recebe um
+      resultado rápido com detalhamento básico da simulação.
+    </p>
+    <p>
+      É importante lembrar que os resultados são estimativos. Convenções coletivas, políticas internas da empresa, mudanças na legislação e
+      regras específicas do contrato podem alterar o valor final. Por isso, use o FazConta como apoio de planejamento e validação inicial,
+      e confirme dados oficiais em documentos da empresa, sindicato, contador ou jurídico trabalhista quando necessário.
+    </p>
+
+    <h2>Principais calculadoras trabalhistas</h2>
+    <div class="cards-grid">
+      {cards.map((slug) => (
+        <CalculatorCard
+          title={slug.replaceAll('-', ' ')}
+          href={`/trabalhista/${slug}`}
+          description="Simulação trabalhista"
+          badge="Trabalhista"
+          icon="💼"
+        />
+      ))}
+    </div>
+
+    <h2>Como aproveitar melhor esta categoria</h2>
+    <ul>
+      <li>Comece pela <a href="/trabalhista/salario-liquido">calculadora de salário líquido</a> para entender descontos fixos.</li>
+      <li>Depois compare cenários em <a href="/trabalhista/ferias">férias</a>, <a href="/trabalhista/decimo-terceiro">13º</a> e <a href="/trabalhista/rescisao">rescisão</a>.</li>
+      <li>Se você gere equipe, use também <a href="/trabalhista/custo-funcionario">custo de funcionário</a> e <a href="/trabalhista/fgts">FGTS</a>.</li>
+    </ul>
+
+    <p><strong>Aviso:</strong> os cálculos são estimativos e não substituem orientação profissional.</p>
+    <p><a class="btn" href="/trabalhista/salario-liquido">Começar pela calculadora de salário líquido</a></p>
+  </section>
+
+  <div class="container">
+    <FAQSection
+      title="FAQ da categoria trabalhista"
+      items={[
+        { question: 'Posso usar para conferência de holerite?', answer: 'Sim, como referência inicial. O valor oficial deve ser validado com os dados da folha da empresa.' },
+        { question: 'Os resultados seguem regras oficiais em tempo real?', answer: 'Não. As calculadoras usam regras públicas e fórmulas estimativas que podem mudar ao longo do tempo.' },
+        { question: 'Serve para CLT e PJ?', answer: 'A maioria é voltada para CLT. Para comparação com PJ, use a calculadora específica de conversão CLT x PJ.' },
+        { question: 'Essas simulações substituem contador ou advogado?', answer: 'Não. Em decisões formais, utilize apoio profissional para revisar o caso concreto.' }
+      ]}
+    />
+  </div>
 </BaseLayout>
