@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CalculatorCard from '../../components/CalculatorCard.astro';
+import FAQSection from '../../components/FAQSection.astro';
+const cards=['cdi','selic','poupanca','emprestimo','cartao-de-credito','parcelamento','reserva-de-emergencia','conversor-de-moeda','investimento-mensal'];
 ---
-<BaseLayout title="Calculadoras Financeiras | FazConta" description="Calcule juros compostos e financiamento de forma rápida e visual.">
-<section class="container section"><h1>Calculadoras Financeiras</h1><p class="lead">Projeções para investimento e crédito com leitura clara.</p><div class="cards-grid"><CalculatorCard title="Juros Compostos" description="Montante, juros e tabela anual." href="/financeiro/juros-compostos" badge="Financeiro" icon="📈" /><CalculatorCard title="Financiamento" description="Parcela estimada e total de juros." href="/financeiro/financiamento" badge="Financeiro" icon="🏠" /></div></section>
+<BaseLayout title="Calculadoras Financeiras | FazConta" description="CDI, Selic, poupança, empréstimo e mais.">
+<section class="container section"><h1>Calculadoras Financeiras</h1><p class="lead">Planeje investimentos e crédito com simulações rápidas.</p><div class="cards-grid">{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/financeiro/${s}`} description="Simulador financeiro" badge="Financeiro" icon="💰" />)}</div></section>
+<div class="container"><FAQSection title="FAQ financeiro" /></div>
 </BaseLayout>

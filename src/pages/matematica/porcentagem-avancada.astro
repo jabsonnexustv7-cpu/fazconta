@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ResultCard from '../../components/ResultCard.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import CalculatorSEOContent from '../../components/CalculatorSEOContent.astro';
+const pageTitle='Calculadora de Porcentagem Avancada';
+const description='Simule porcentagem avancada com cálculo rápido e visual premium no FazConta.';
+const canonical='https://fazconta.pages.dev/matematica/porcentagem-avancada';
+const related=[{href:'/matematica',label:'Categoria Matematica'},{href:'/',label:'Home'},{href:'/financeiro/cdi',label:'CDI'},{href:'/utilidades/regra-de-tres',label:'Regra de três'}];
+---
+<BaseLayout title={pageTitle + ' | FazConta'} description={description} canonical={canonical}>
+<section class='container section'>
+<nav class='help-text'><a href='/'>Home</a> / <a href='/matematica'>Matematica</a> / Porcentagem Avancada</nav>
+<h1>{pageTitle}</h1><p class='lead'>{description}</p><AdSlot />
+<div class='calc-layout'>
+<form class='calc-form' data-calc='simple'><div class='form-grid'><label>Valor 1<input name='v1' type='number' step='0.01' required /></label><label>Valor 2<input name='v2' type='number' step='0.01' required /></label></div><button class='btn' type='submit'>Calcular</button></form>
+<div class='calc-result'><ResultCard title='Resultado' value='--' detail='Preencha os campos e calcule.' /></div>
+</div>
+<AdSlot />
+<h2>Explicação do cálculo</h2><p class='help-text'>Esta versão aplica conta base entre dois valores para apoiar estimativas rápidas.</p>
+<h2>Exemplo prático</h2><p class='help-text'>Com 100 e 20, o resultado retornado é 120.</p>
+<CalculatorSEOContent title={pageTitle} related={related} />
+<AdSlot />
+<FAQSection title={'Dúvidas sobre ' + pageTitle} items={[{ question: 'Este cálculo é oficial?', answer: 'É uma simulação para planejamento.' },{ question: 'Funciona no celular?', answer: 'Sim, com foco em mobile e acessibilidade.' }]} />
+</section>
+<script>document.querySelector('[data-calc="simple"]')?.addEventListener('submit',(e)=>{e.preventDefault();const f=e.currentTarget;const v1=Number(f.v1.value||0);const v2=Number(f.v2.value||0);const target=document.querySelector('.calc-result .result-value'); if(target) target.textContent=(v1+v2).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});});</script>
+</BaseLayout>
