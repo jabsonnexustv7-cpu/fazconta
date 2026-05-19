@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CalculatorCard from '../components/CalculatorCard.astro';
 import FAQSection from '../components/FAQSection.astro';
+import AdSlot from '../components/AdSlot.astro';
 import { calculadorasSeo } from "../data/calculadoras";
 const calculators=calculadorasSeo.map((c)=>({title:c.titulo,href:c.rota,description:c.descricao,category:c.categoria||"Calculadora",icon:"utilidades"}));
 const featured=[
@@ -9,6 +10,7 @@ const featured=[
 ---
 <BaseLayout title="FazConta | Portal de calculadoras" description="Portal de calculadoras trabalhistas, financeiras, utilidades, saúde e matemática.">
 <section class="hero container"><div><span class="hero-chip">FazConta</span><h1>Calculadoras simples para o dia a dia</h1><p>Simule salário, férias, rescisão, juros, IMC e muito mais em poucos segundos.</p><div class="search-shell"><input id="search-calc" type="search" placeholder="Busque por FGTS, CDI, IMC, regra de três..." /></div></div><aside class="hero-panel"><p class="result-title">Mais de 5 áreas</p><p class="result-value">Rápido, claro e gratuito</p></aside></section>
+<section class="container section"><AdSlot position="top" /></section>
 
 <section class="container section"><h2>Todas as calculadoras disponíveis</h2><div class="cards-grid" id="all-calcs">{calculators.map((c)=><article data-title={c.title.toLowerCase()} data-description={c.description.toLowerCase()} data-category={c.category.toLowerCase()}><CalculatorCard title={c.title} description={c.description} href={c.href} badge={c.category} icon={c.icon} /></article>)}</div></section>
 
@@ -25,6 +27,7 @@ const featured=[
 <a class="calc-card" href="/blog/como-calcular-porcentagem"><h3>Como calcular porcentagem</h3></a>
 <a class="calc-card" href="/blog/como-calcular-incc"><h3>Como calcular INCC</h3></a>
 </div></section>
+<section class="container section"><AdSlot position="bottom" /></section>
 
 <div class="container"><FAQSection title="FAQ FazConta" subtitle="Perguntas simples para usar as calculadoras com confiança." /></div>
 <script>const input=document.getElementById('search-calc');const items=document.querySelectorAll('#all-calcs article');input?.addEventListener('input',()=>{const q=input.value.toLowerCase().trim();items.forEach((i)=>{i.style.display=[i.dataset.title,i.dataset.description,i.dataset.category].some((v)=>v.includes(q))?'':'none';});});</script>
