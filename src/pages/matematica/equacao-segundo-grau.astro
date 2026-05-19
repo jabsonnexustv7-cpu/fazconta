@@ -1,28 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ResultCard from '../../components/ResultCard.astro';
-import AdSlot from '../../components/AdSlot.astro';
-import FAQSection from '../../components/FAQSection.astro';
-import CalculatorSEOContent from '../../components/CalculatorSEOContent.astro';
-const pageTitle='Calculadora de Equacao Segundo Grau';
-const description='Simule equacao segundo grau com cálculo rápido e visual premium no FazConta.';
-const canonical='https://fazconta.pages.dev/matematica/equacao-segundo-grau';
-const related=[{href:'/matematica',label:'Categoria Matematica'},{href:'/',label:'Home'},{href:'/financeiro/cdi',label:'CDI'},{href:'/utilidades/regra-de-tres',label:'Regra de três'}];
+import BaseLayout from '../../layouts/BaseLayout.astro';import Breadcrumb from '../../components/Breadcrumb.astro';import AdSlot from '../../components/AdSlot.astro';import FAQSection from '../../components/FAQSection.astro';import FAQSchema from '../../components/FAQSchema.astro';
+const faqItems=[{question:'O que é delta?',answer:'É b² - 4ac e define a quantidade de raízes reais.'},{question:'Quando não há raízes reais?',answer:'Quando o delta é negativo.'},{question:'Pode ter uma raiz só?',answer:'Sim, quando delta é zero.'},{question:'Qual fórmula é usada?',answer:'Bhaskara: x = (-b ± √delta)/(2a).'}];
 ---
-<BaseLayout title={pageTitle + ' | FazConta'} description={description} canonical={canonical}>
-<section class='container section'>
-<nav class='help-text'><a href='/'>Home</a> / <a href='/matematica'>Matematica</a> / Equacao Segundo Grau</nav>
-<h1>{pageTitle}</h1><p class='lead'>{description}</p><AdSlot />
-<div class='calc-layout'>
-<form class='calc-form' data-calc='simple'><div class='form-grid'><label>Valor 1<input name='v1' type='number' step='0.01' required /></label><label>Valor 2<input name='v2' type='number' step='0.01' required /></label></div><button class='btn' type='submit'>Calcular</button></form>
-<div class='calc-result'><ResultCard title='Resultado' value='--' detail='Preencha os campos e calcule.' /></div>
-</div>
-<AdSlot />
-<h2>Explicação do cálculo</h2><p class='help-text'>Esta versão aplica conta base entre dois valores para apoiar estimativas rápidas.</p>
-<h2>Exemplo prático</h2><p class='help-text'>Com 100 e 20, o resultado retornado é 120.</p>
-<CalculatorSEOContent title={pageTitle} related={related} />
-<AdSlot />
-<FAQSection title={'Dúvidas sobre ' + pageTitle} items={[{ question: 'Este cálculo é oficial?', answer: 'É uma simulação para planejamento.' },{ question: 'Funciona no celular?', answer: 'Sim, com foco em mobile e acessibilidade.' }]} />
-</section>
-<script>document.querySelector('[data-calc="simple"]')?.addEventListener('submit',(e)=>{e.preventDefault();const f=e.currentTarget;const v1=Number(f.v1.value||0);const v2=Number(f.v2.value||0);const target=document.querySelector('.calc-result .result-value'); if(target) target.textContent=(v1+v2).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});});</script>
-</BaseLayout>
+<BaseLayout title='Equação do Segundo Grau | FazConta' description='Calcule delta e raízes reais da equação ax² + bx + c = 0.'><section class='container section'><Breadcrumb items={[{label:'Home',href:'/'},{label:'Matemática',href:'/matematica'},{label:'Equação do segundo grau'}]} /><h1>Equação do segundo grau</h1><AdSlot /><div class='calc-layout'><form class='calc-form' id='eq-form'><div class='form-grid'><label>a<input name='a' type='number' required/></label><label>b<input name='b' type='number' required/></label><label>c<input name='c' type='number' required/></label></div><button class='btn'>Resolver</button></form><div class='calc-result'><h2 class='result-title'>Resultado</h2><p class='result-value' id='delta'>--</p><p class='result-detail' id='raizes'>--</p></div></div><FAQSection title='FAQ sobre equação do segundo grau' items={faqItems}/><FAQSchema items={faqItems}/></section><script>document.getElementById('eq-form')?.addEventListener('submit',(e)=>{e.preventDefault();const a=Number(e.currentTarget.a.value),b=Number(e.currentTarget.b.value),c=Number(e.currentTarget.c.value);if(!a){delta.textContent='Coeficiente a deve ser diferente de zero';raizes.textContent='';return;}const d=(b*b)-(4*a*c);document.getElementById('delta').textContent=`Delta: ${d}`;if(d<0){document.getElementById('raizes').textContent='Não há raízes reais.';return;}const x1=(-b+Math.sqrt(d))/(2*a),x2=(-b-Math.sqrt(d))/(2*a);document.getElementById('raizes').textContent=`x1 = ${x1.toLocaleString('pt-BR',{maximumFractionDigits:6})} | x2 = ${x2.toLocaleString('pt-BR',{maximumFractionDigits:6})}`;});</script></BaseLayout>

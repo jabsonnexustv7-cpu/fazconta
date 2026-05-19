@@ -1,28 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ResultCard from '../../components/ResultCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import FAQSection from '../../components/FAQSection.astro';
-import CalculatorSEOContent from '../../components/CalculatorSEOContent.astro';
-const pageTitle='Calculadora de Media';
-const description='Simule media com cálculo rápido e visual premium no FazConta.';
-const canonical='https://fazconta.pages.dev/matematica/media';
-const related=[{href:'/matematica',label:'Categoria Matematica'},{href:'/',label:'Home'},{href:'/financeiro/cdi',label:'CDI'},{href:'/utilidades/regra-de-tres',label:'Regra de três'}];
+import FAQSchema from '../../components/FAQSchema.astro';
+const faqItems=[{question:'Como separar os números?',answer:'Digite a lista com vírgulas, por exemplo: 7, 8, 9.'},{question:'Posso usar número decimal?',answer:'Sim, valores como 7.5 e 8.25 são aceitos.'},{question:'A média ponderada entra aqui?',answer:'Não. Esta página calcula apenas média aritmética simples.'},{question:'O resultado é arredondado?',answer:'Mostramos até 4 casas decimais para manter leitura clara.'}];
 ---
-<BaseLayout title={pageTitle + ' | FazConta'} description={description} canonical={canonical}>
+<BaseLayout title='Calculadora de Média | FazConta' description='Calcule média aritmética com lista de números, soma total e quantidade de itens.'>
 <section class='container section'>
-<nav class='help-text'><a href='/'>Home</a> / <a href='/matematica'>Matematica</a> / Media</nav>
-<h1>{pageTitle}</h1><p class='lead'>{description}</p><AdSlot />
-<div class='calc-layout'>
-<form class='calc-form' data-calc='simple'><div class='form-grid'><label>Valor 1<input name='v1' type='number' step='0.01' required /></label><label>Valor 2<input name='v2' type='number' step='0.01' required /></label></div><button class='btn' type='submit'>Calcular</button></form>
-<div class='calc-result'><ResultCard title='Resultado' value='--' detail='Preencha os campos e calcule.' /></div>
-</div>
-<AdSlot />
-<h2>Explicação do cálculo</h2><p class='help-text'>Esta versão aplica conta base entre dois valores para apoiar estimativas rápidas.</p>
-<h2>Exemplo prático</h2><p class='help-text'>Com 100 e 20, o resultado retornado é 120.</p>
-<CalculatorSEOContent title={pageTitle} related={related} />
-<AdSlot />
-<FAQSection title={'Dúvidas sobre ' + pageTitle} items={[{ question: 'Este cálculo é oficial?', answer: 'É uma simulação para planejamento.' },{ question: 'Funciona no celular?', answer: 'Sim, com foco em mobile e acessibilidade.' }]} />
+<Breadcrumb items={[{label:'Home',href:'/'},{label:'Matemática',href:'/matematica'},{label:'Média'}]} />
+<h1>Calculadora de média aritmética</h1><p class='lead'>Informe uma lista de números separados por vírgula e veja média, soma e quantidade.</p><AdSlot />
+<div class='calc-layout'><form class='calc-form' id='media-form'><label>Lista de números (separados por vírgula)<input name='lista' placeholder='Ex.: 7, 8, 9' required/></label><button class='btn' type='submit'>Calcular média</button></form><div class='calc-result'><h2 class='result-title'>Resultado</h2><p class='result-value' id='media-valor'>--</p><p class='result-detail' id='media-detalhe'>Preencha a lista para calcular.</p></div></div>
+<h2>Como usar esta calculadora</h2><p>Digite os números na ordem que quiser. Exemplo prático: 7, 8, 9. A média será 8, com soma 24 e quantidade 3.</p>
+<h2>Calculadoras relacionadas</h2><ul><li><a href='/matematica/fracoes'>Frações</a></li><li><a href='/matematica/mdc-mmc'>MDC e MMC</a></li><li><a href='/utilidades/regra-de-tres'>Regra de três</a></li></ul>
+<p><a href='/matematica'>Voltar para Matemática</a> · <a href='/blog'>Ir para o blog</a></p>
+<AdSlot /><FAQSection title='FAQ de média aritmética' items={faqItems}/><FAQSchema items={faqItems}/>
 </section>
-<script>document.querySelector('[data-calc="simple"]')?.addEventListener('submit',(e)=>{e.preventDefault();const f=e.currentTarget;const v1=Number(f.v1.value||0);const v2=Number(f.v2.value||0);const target=document.querySelector('.calc-result .result-value'); if(target) target.textContent=(v1+v2).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});});</script>
+<script>document.getElementById('media-form')?.addEventListener('submit',(e)=>{e.preventDefault();const raw=e.currentTarget.lista.value||'';const nums=raw.split(',').map(v=>Number(v.trim())).filter(v=>Number.isFinite(v));if(!nums.length){document.getElementById('media-valor').textContent='Lista inválida';document.getElementById('media-detalhe').textContent='Digite pelo menos um número válido.';return;}const soma=nums.reduce((a,b)=>a+b,0);const media=soma/nums.length;document.getElementById('media-valor').textContent=`Média: ${media.toLocaleString('pt-BR',{maximumFractionDigits:4})}`;document.getElementById('media-detalhe').textContent=`Quantidade: ${nums.length} | Soma: ${soma.toLocaleString('pt-BR',{maximumFractionDigits:4})}`;});</script>
 </BaseLayout>

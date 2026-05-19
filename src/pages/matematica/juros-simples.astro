@@ -1,28 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ResultCard from '../../components/ResultCard.astro';
-import AdSlot from '../../components/AdSlot.astro';
-import FAQSection from '../../components/FAQSection.astro';
-import CalculatorSEOContent from '../../components/CalculatorSEOContent.astro';
-const pageTitle='Calculadora de Juros Simples';
-const description='Simule juros simples com cálculo rápido e visual premium no FazConta.';
-const canonical='https://fazconta.pages.dev/matematica/juros-simples';
-const related=[{href:'/matematica',label:'Categoria Matematica'},{href:'/',label:'Home'},{href:'/financeiro/cdi',label:'CDI'},{href:'/utilidades/regra-de-tres',label:'Regra de três'}];
+import BaseLayout from '../../layouts/BaseLayout.astro';import Breadcrumb from '../../components/Breadcrumb.astro';import AdSlot from '../../components/AdSlot.astro';import FAQSection from '../../components/FAQSection.astro';import FAQSchema from '../../components/FAQSchema.astro';
+const faqItems=[{question:'Qual fórmula é usada?',answer:'J = C × i × t e M = C + J.'},{question:'Taxa anual com prazo mensal?',answer:'Converta para a mesma unidade antes do cálculo.'},{question:'Serve para empréstimo?',answer:'Sim, quando o contrato usa juros simples.'},{question:'Qual diferença para composto?',answer:'No simples os juros não rendem juros sobre juros.'}];
 ---
-<BaseLayout title={pageTitle + ' | FazConta'} description={description} canonical={canonical}>
-<section class='container section'>
-<nav class='help-text'><a href='/'>Home</a> / <a href='/matematica'>Matematica</a> / Juros Simples</nav>
-<h1>{pageTitle}</h1><p class='lead'>{description}</p><AdSlot />
-<div class='calc-layout'>
-<form class='calc-form' data-calc='simple'><div class='form-grid'><label>Valor 1<input name='v1' type='number' step='0.01' required /></label><label>Valor 2<input name='v2' type='number' step='0.01' required /></label></div><button class='btn' type='submit'>Calcular</button></form>
-<div class='calc-result'><ResultCard title='Resultado' value='--' detail='Preencha os campos e calcule.' /></div>
-</div>
-<AdSlot />
-<h2>Explicação do cálculo</h2><p class='help-text'>Esta versão aplica conta base entre dois valores para apoiar estimativas rápidas.</p>
-<h2>Exemplo prático</h2><p class='help-text'>Com 100 e 20, o resultado retornado é 120.</p>
-<CalculatorSEOContent title={pageTitle} related={related} />
-<AdSlot />
-<FAQSection title={'Dúvidas sobre ' + pageTitle} items={[{ question: 'Este cálculo é oficial?', answer: 'É uma simulação para planejamento.' },{ question: 'Funciona no celular?', answer: 'Sim, com foco em mobile e acessibilidade.' }]} />
-</section>
-<script>document.querySelector('[data-calc="simple"]')?.addEventListener('submit',(e)=>{e.preventDefault();const f=e.currentTarget;const v1=Number(f.v1.value||0);const v2=Number(f.v2.value||0);const target=document.querySelector('.calc-result .result-value'); if(target) target.textContent=(v1+v2).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});});</script>
-</BaseLayout>
+<BaseLayout title='Calculadora de Juros Simples | FazConta' description='Calcule juros acumulados e montante com capital, taxa e prazo.'><section class='container section'><Breadcrumb items={[{label:'Home',href:'/'},{label:'Matemática',href:'/matematica'},{label:'Juros simples'}]} /><h1>Calculadora de juros simples</h1><p class='lead'>Informe capital inicial, taxa e prazo para calcular juros e montante final.</p><AdSlot /><div class='calc-layout'><form class='calc-form' id='js-form'><div class='form-grid'><label>Capital inicial (R$)<input name='c' type='number' step='0.01' required/></label><label>Taxa de juros (%)<input name='i' type='number' step='0.01' required/></label><label>Tipo da taxa<select name='tipo'><option value='mensal'>Mensal</option><option value='anual'>Anual</option></select></label><label>Prazo (meses)<input name='t' type='number' required/></label></div><button class='btn'>Calcular</button></form><div class='calc-result'><h2 class='result-title'>Resultado</h2><p class='result-value' id='jsValor'>--</p><p class='result-detail' id='jsDet'>--</p></div></div><h2>Exemplo prático</h2><p>Capital de R$ 1.000, taxa de 2% ao mês por 6 meses gera juros de R$ 120 e montante de R$ 1.120.</p><FAQSection title='FAQ de juros simples' items={faqItems}/><FAQSchema items={faqItems}/></section><script>document.getElementById('js-form')?.addEventListener('submit',(e)=>{e.preventDefault();const f=e.currentTarget;const c=Number(f.c.value);let i=Number(f.i.value)/100;const t=Number(f.t.value);if(f.tipo.value==='anual') i/=12;const j=c*i*t;const m=c+j;jsValor.textContent=`Juros: ${j.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}`;jsDet.textContent=`Montante: ${m.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})} | Fórmula: J = C × i × t`;});</script></BaseLayout>
