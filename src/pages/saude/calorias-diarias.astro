@@ -1,28 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ResultCard from '../../components/ResultCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import FAQSection from '../../components/FAQSection.astro';
-import CalculatorSEOContent from '../../components/CalculatorSEOContent.astro';
-const pageTitle='Calculadora de Calorias Diarias';
-const description='Simule calorias diarias com cálculo rápido e visual premium no FazConta.';
-const canonical='https://fazconta.pages.dev/saude/calorias-diarias';
-const related=[{href:'/saude',label:'Categoria Saude'},{href:'/',label:'Home'},{href:'/financeiro/cdi',label:'CDI'},{href:'/utilidades/regra-de-tres',label:'Regra de três'}];
+import FAQSchema from '../../components/FAQSchema.astro';
+const title='Calculadora de Calorias Diárias | FazConta';
+const description='Estime gasto calórico diário com TMB (Mifflin-St Jeor), nível de atividade e objetivo de peso.';
+const faqItems=[{question:'Posso usar para dieta médica?',answer:'Não. Para dietas terapêuticas, use acompanhamento profissional.'},{question:'A calculadora dá valor exato?',answer:'Não. O resultado é estimativo e pode variar por rotina, composição corporal e saúde.'},{question:'Por que o objetivo altera calorias?',answer:'Aplicamos ajuste de -300 kcal para perder peso e +300 kcal para ganhar peso, como referência inicial.'},{question:'Qual a relação com TMB?',answer:'A TMB é a base do cálculo; depois aplicamos multiplicador de atividade para estimar gasto diário total.'}];
 ---
-<BaseLayout title={pageTitle + ' | FazConta'} description={description} canonical={canonical}>
-<section class='container section'>
-<nav class='help-text'><a href='/'>Home</a> / <a href='/saude'>Saude</a> / Calorias Diarias</nav>
-<h1>{pageTitle}</h1><p class='lead'>{description}</p><AdSlot />
-<div class='calc-layout'>
-<form class='calc-form' data-calc='simple'><div class='form-grid'><label>Valor 1<input name='v1' type='number' step='0.01' required /></label><label>Valor 2<input name='v2' type='number' step='0.01' required /></label></div><button class='btn' type='submit'>Calcular</button></form>
-<div class='calc-result'><ResultCard title='Resultado' value='--' detail='Preencha os campos e calcule.' /></div>
-</div>
-<AdSlot />
-<h2>Explicação do cálculo</h2><p class='help-text'>Esta versão aplica conta base entre dois valores para apoiar estimativas rápidas.</p>
-<h2>Exemplo prático</h2><p class='help-text'>Com 100 e 20, o resultado retornado é 120.</p>
-<CalculatorSEOContent title={pageTitle} related={related} />
-<AdSlot />
-<FAQSection title={'Dúvidas sobre ' + pageTitle} items={[{ question: 'Este cálculo é oficial?', answer: 'É uma simulação para planejamento.' },{ question: 'Funciona no celular?', answer: 'Sim, com foco em mobile e acessibilidade.' }]} />
-</section>
-<script>document.querySelector('[data-calc="simple"]')?.addEventListener('submit',(e)=>{e.preventDefault();const f=e.currentTarget;const v1=Number(f.v1.value||0);const v2=Number(f.v2.value||0);const target=document.querySelector('.calc-result .result-value'); if(target) target.textContent=(v1+v2).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});});</script>
-</BaseLayout>
+<BaseLayout title={title} description={description}><section class="container section"><Breadcrumb items={[{label:'Home',href:'/'},{label:'Saúde',href:'/saude'},{label:'Calorias diárias'}]} /><h1>Calculadora de calorias diárias</h1><p class="lead">Estime seu gasto calórico diário e uma sugestão de ingestão por objetivo.</p><AdSlot /><div class="calc-layout"><form class="calc-form" id="calorias-form"><h2>Preencha seus dados</h2><div class="form-grid"><label>Sexo<select name="sexo"><option value="masculino">Masculino</option><option value="feminino">Feminino</option></select></label><label>Idade (anos)<input type="number" name="idade" min="10" max="120" required/></label><label>Peso (kg)<input type="number" name="peso" step="0.1" min="1" required/></label><label>Altura (cm)<input type="number" name="altura" step="0.1" min="30" required/></label><label>Nível de atividade<select name="atividade"><option value="baixo">Baixo (1,2)</option><option value="leve">Leve (1,375)</option><option value="moderado">Moderado (1,55)</option><option value="alto">Alto (1,725)</option></select></label><label>Objetivo<select name="objetivo"><option value="manter">Manter peso</option><option value="perder">Perder peso</option><option value="ganhar">Ganhar peso</option></select></label></div><button class="btn" type="submit">Calcular calorias</button></form><div class="calc-result"><h2 class="result-title">Resultado</h2><p class="result-value" id="gasto-total">--</p><p class="result-detail" id="calorias-objetivo">Sugestão por objetivo: --</p></div></div><p><strong>Aviso:</strong> cálculo estimativo e educacional. Não substitui orientação médica ou nutricional personalizada.</p><h2>Como usar esta calculadora</h2><ul><li>Informe dados atuais e selecione seu objetivo.</li><li>Use o valor como ponto de partida.</li><li>Ajuste com acompanhamento profissional conforme evolução.</li></ul><h2>Como o cálculo é feito</h2><p class="help-text">Calculamos TMB por Mifflin-St Jeor e multiplicamos pelo nível de atividade (baixo 1,2; leve 1,375; moderado 1,55; alto 1,725). Depois ajustamos o objetivo: manter (0), perder (-300 kcal), ganhar (+300 kcal).</p><h2>Exemplo prático</h2><p class="help-text">Homem de 80 kg, 180 cm, 30 anos e atividade moderada pode ter gasto estimado perto de 2.760 kcal/dia.</p><h2>Calculadoras relacionadas</h2><ul><li><a href="/saude/tmb">TMB</a></li><li><a href="/saude/agua-diaria">Água diária</a></li><li><a href="/saude/imc">IMC</a></li></ul><p><a href="/saude">Voltar para categoria Saúde</a> · <a href="/blog">Ir para o blog</a></p><FAQSection title="FAQ sobre calorias diárias" items={faqItems}/><FAQSchema items={faqItems}/></section><script>document.getElementById('calorias-form')?.addEventListener('submit',(e)=>{e.preventDefault();const d=new FormData(e.currentTarget);const sexo=d.get('sexo');const idade=Number(d.get('idade'));const peso=Number(d.get('peso'));const altura=Number(d.get('altura'));const atividade=d.get('atividade');const objetivo=d.get('objetivo');const mult={baixo:1.2,leve:1.375,moderado:1.55,alto:1.725}[atividade]||1.2;const base=(10*peso)+(6.25*altura)-(5*idade);const tmb=sexo==='masculino'?base+5:base-161;const gasto=tmb*mult;const ajuste=objetivo==='perder'?-300:objetivo==='ganhar'?300:0;const sugestao=gasto+ajuste;document.getElementById('gasto-total').textContent=`Gasto diário estimado: ${Math.round(gasto).toLocaleString('pt-BR')} kcal`;document.getElementById('calorias-objetivo').textContent=`Sugestão estimada para objetivo: ${Math.round(sugestao).toLocaleString('pt-BR')} kcal/dia`;});</script></BaseLayout>

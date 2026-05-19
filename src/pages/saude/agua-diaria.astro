@@ -1,28 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ResultCard from '../../components/ResultCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import FAQSection from '../../components/FAQSection.astro';
-import CalculatorSEOContent from '../../components/CalculatorSEOContent.astro';
-const pageTitle='Calculadora de Agua Diaria';
-const description='Simule agua diaria com cálculo rápido e visual premium no FazConta.';
-const canonical='https://fazconta.pages.dev/saude/agua-diaria';
-const related=[{href:'/saude',label:'Categoria Saude'},{href:'/',label:'Home'},{href:'/financeiro/cdi',label:'CDI'},{href:'/utilidades/regra-de-tres',label:'Regra de três'}];
+import FAQSchema from '../../components/FAQSchema.astro';
+const title='Calculadora de Água Diária | FazConta';
+const description='Estime ingestão diária de água com base no peso e nível de atividade. Resultado aproximado para rotina de hidratação.';
+const faqItems=[{question:'Esse valor substitui orientação médica?',answer:'Não. É uma estimativa geral, especialmente limitada em casos clínicos específicos.'},{question:'Quem treina precisa de mais água?',answer:'Geralmente sim, por maior perda hídrica. Ajustes individuais variam por clima, treino e saúde.'},{question:'Posso beber tudo de uma vez?',answer:'O ideal é distribuir ao longo do dia para melhor tolerância e hidratação consistente.'},{question:'Café e chá contam?',answer:'Podem contribuir para ingestão total de líquidos, mas água segue como principal referência.'}];
 ---
-<BaseLayout title={pageTitle + ' | FazConta'} description={description} canonical={canonical}>
-<section class='container section'>
-<nav class='help-text'><a href='/'>Home</a> / <a href='/saude'>Saude</a> / Agua Diaria</nav>
-<h1>{pageTitle}</h1><p class='lead'>{description}</p><AdSlot />
-<div class='calc-layout'>
-<form class='calc-form' data-calc='simple'><div class='form-grid'><label>Valor 1<input name='v1' type='number' step='0.01' required /></label><label>Valor 2<input name='v2' type='number' step='0.01' required /></label></div><button class='btn' type='submit'>Calcular</button></form>
-<div class='calc-result'><ResultCard title='Resultado' value='--' detail='Preencha os campos e calcule.' /></div>
-</div>
-<AdSlot />
-<h2>Explicação do cálculo</h2><p class='help-text'>Esta versão aplica conta base entre dois valores para apoiar estimativas rápidas.</p>
-<h2>Exemplo prático</h2><p class='help-text'>Com 100 e 20, o resultado retornado é 120.</p>
-<CalculatorSEOContent title={pageTitle} related={related} />
-<AdSlot />
-<FAQSection title={'Dúvidas sobre ' + pageTitle} items={[{ question: 'Este cálculo é oficial?', answer: 'É uma simulação para planejamento.' },{ question: 'Funciona no celular?', answer: 'Sim, com foco em mobile e acessibilidade.' }]} />
-</section>
-<script>document.querySelector('[data-calc="simple"]')?.addEventListener('submit',(e)=>{e.preventDefault();const f=e.currentTarget;const v1=Number(f.v1.value||0);const v2=Number(f.v2.value||0);const target=document.querySelector('.calc-result .result-value'); if(target) target.textContent=(v1+v2).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});});</script>
-</BaseLayout>
+<BaseLayout title={title} description={description}><section class="container section"><Breadcrumb items={[{label:'Home',href:'/'},{label:'Saúde',href:'/saude'},{label:'Água diária'}]} /><h1>Calculadora de água diária</h1><p class="lead">Faça uma estimativa simples da quantidade de água por dia.</p><AdSlot /><div class="calc-layout"><form class="calc-form" id="agua-form"><h2>Informe seus dados</h2><div class="form-grid"><label>Peso (kg)<input type="number" name="peso" step="0.1" min="1" required/></label><label>Nível de atividade<select name="atividade" required><option value="baixo">Baixo</option><option value="moderado">Moderado</option><option value="alto">Alto</option></select></label></div><button class="btn" type="submit">Calcular água diária</button></form><div class="calc-result"><h2 class="result-title">Resultado</h2><p class="result-value" id="agua-valor">--</p><p class="result-detail" id="agua-faixa">Faixa aproximada: --</p></div></div><p><strong>Aviso:</strong> cálculo estimativo, não individualiza doenças renais, cardíacas ou outras condições.</p><h2>Como usar esta calculadora</h2><ul><li>Digite o peso e selecione sua rotina de atividade.</li><li>Use o resultado para organizar metas de hidratação.</li><li>Distribua o consumo durante o dia.</li></ul><h2>Como o cálculo é feito</h2><p class="help-text">Base de 35 ml por kg. Aplicamos ajuste por atividade: baixo (0%), moderado (+10%), alto (+20%). Também mostramos uma faixa mínima e máxima aproximada de ±10%.</p><h2>Exemplo prático</h2><p class="help-text">Pessoa com 70 kg e atividade moderada: base de 2,45 L/dia; com ajuste, cerca de 2,70 L/dia.</p><h2>Calculadoras relacionadas</h2><ul><li><a href="/saude/calorias-diarias">Calorias diárias</a></li><li><a href="/saude/tmb">TMB</a></li><li><a href="/saude/imc">IMC</a></li></ul><p><a href="/saude">Voltar para categoria Saúde</a> · <a href="/blog">Ir para o blog</a></p><FAQSection title="FAQ sobre água diária" items={faqItems}/><FAQSchema items={faqItems}/></section><script>document.getElementById('agua-form')?.addEventListener('submit',(e)=>{e.preventDefault();const f=e.currentTarget;const d=new FormData(f);const peso=Number(d.get('peso'));const atividade=d.get('atividade');const baseLitros=(peso*35)/1000;const fator=atividade==='alto'?1.2:atividade==='moderado'?1.1:1;const total=baseLitros*fator;const min=total*0.9;const max=total*1.1;document.getElementById('agua-valor').textContent=`${total.toFixed(2).replace('.',',')} L/dia`;document.getElementById('agua-faixa').textContent=`Faixa aproximada: ${min.toFixed(2).replace('.',',')} L a ${max.toFixed(2).replace('.',',')} L.`;});</script></BaseLayout>
