@@ -1,4 +1,157 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro'; import FAQSection from '../../components/FAQSection.astro'; import AdSlot from '../../components/AdSlot.astro'; import Breadcrumb from '../../components/Breadcrumb.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import FAQSchema from '../../components/FAQSchema.astro';
+
+const faqItems = [
+  {
+    question: 'O que é desconto progressivo do INSS?',
+    answer:
+      'É o cálculo por faixas: cada parte do salário é tributada com uma alíquota diferente, até o teto previdenciário vigente.'
+  },
+  {
+    question: 'Dependentes reduzem quanto no IRRF?',
+    answer:
+      'Cada dependente reduz a base de cálculo do IRRF em um valor fixo estimado por mês, o que pode diminuir o imposto devido.'
+  },
+  {
+    question: 'Vale-transporte sempre desconta 6%?',
+    answer:
+      'Não necessariamente. A regra geral permite desconto de até 6% do salário-base, mas acordos e políticas internas podem alterar o valor efetivo.'
+  },
+  {
+    question: 'O resultado é exato ou estimado?',
+    answer:
+      'É estimado. O holerite oficial pode incluir regras específicas da empresa, sindicato, benefícios e eventos de folha.'
+  }
+];
 ---
-<BaseLayout title="Calculadora de Salário Líquido 2026 | FazConta" description="Simule salário líquido com INSS, IRRF e descontos adicionais."><section class="container section"><Breadcrumb items={[{label:'Início',href:'/'},{label:'Trabalhista',href:'/trabalhista'},{label:'Salário Líquido'}]} /></section><section class="container section calc-layout"><article class="calc-form"><h1>Calculadora de Salário Líquido</h1><p class="lead">Resultado estimativo, pode variar conforme regras oficiais e descontos da empresa.</p><AdSlot /><div class="form-grid"><label>Salário bruto<input id="bruto" type="number" step="0.01" /></label><label>Dependentes<input id="deps" type="number" value="0" /></label><label>Vale-transporte descontado<input id="vt" type="number" step="0.01" value="0" /></label><label>Vale-refeição descontado<input id="vr" type="number" step="0.01" value="0" /></label><label>Plano de saúde descontado<input id="saude" type="number" step="0.01" value="0" /></label><label>Outros descontos<input id="outros" type="number" step="0.01" value="0" /></label></div><button class="btn" id="calc">Calcular</button></article><aside class="calc-result"><div class="result-card"><p class="result-title">Salário líquido em destaque</p><p class="result-value" id="liq">R$ 0,00</p><p class="result-detail" id="det"></p></div><AdSlot /><div class="related-links"><a href="/trabalhista/decimo-terceiro">Décimo terceiro</a><a href="/trabalhista/ferias">Férias</a></div></aside></section><section class="container section"><h2>Como usar esta calculadora</h2><p class="help-text">Preencha os campos e clique em calcular. Exemplo: bruto R$ 5.000, 1 dependente e R$ 600 de descontos adicionais.</p></section><section class="container section"><h2>Calculadoras relacionadas</h2><ul><li><a href="/trabalhista/ferias">Férias</a></li><li><a href="/trabalhista/rescisao">Rescisão</a></li><li><a href="/trabalhista/decimo-terceiro">Décimo terceiro</a></li><li><a href="/blog/como-calcular-salario-liquido">Guia: salário líquido</a></li><li><a href="/blog/salario-bruto-vs-salario-liquido">Guia: bruto vs líquido</a></li><li><a href="/trabalhista">Ver categoria trabalhista</a></li></ul></section><div class="container"><AdSlot /><FAQSection items={[{question:'A tabela é oficial?',answer:'A base é estimativa conforme faixas públicas.'},{question:'Inclui todos os descontos?',answer:'Não. Descontos específicos podem variar por empresa.'},{question:'Posso usar para holerite?',answer:'Use como referência inicial.'},{question:'Dependentes impactam IRRF?',answer:'Sim, reduzem a base de cálculo.'}]} /></div><script>const f=(n)=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});const inssCalc=(b)=>{const t=[[1518,.075],[2793.88,.09],[4190.83,.12],[8157.41,.14]];let p=0,a=0;for(const [l,r] of t){const faixa=Math.min(b,l)-p;if(faixa>0)a+=faixa*r;p=l;}return a};const irrf=(base)=>base<=2259.2?0:base<=2826.65?base*.075-169.44:base<=3751.05?base*.15-381.44:base<=4664.68?base*.225-662.77:base*.275-896;document.getElementById('calc').addEventListener('click',()=>{const bruto=+bruto.value||0,deps=+deps.value||0,ad=(+vt.value||0)+(+vr.value||0)+(+saude.value||0)+(+outros.value||0),inss=inssCalc(bruto),base=Math.max(bruto-inss-deps*189.59,0),ir=Math.max(irrf(base),0),td=inss+ir+ad;liq.textContent=f(Math.max(bruto-td,0));det.textContent=`Bruto ${f(bruto)} · INSS ${f(inss)} · Base IRRF ${f(base)} · IRRF ${f(ir)} · Desc. adicionais ${f(ad)} · Total descontos ${f(td)}`});</script></BaseLayout>
+
+<BaseLayout
+  title="Calculadora de Salário Líquido (INSS e IRRF) | FazConta"
+  description="Calcule salário líquido com INSS progressivo, IRRF estimado, dependentes e descontos como VT, VR e plano de saúde."
+>
+  <section class="container section">
+    <Breadcrumb items={[{ label: 'Início', href: '/' }, { label: 'Trabalhista', href: '/trabalhista' }, { label: 'Salário Líquido' }]} />
+  </section>
+
+  <section class="container section calc-layout">
+    <article class="calc-form">
+      <h1>Calculadora de Salário Líquido</h1>
+      <p class="lead">Simule seu salário líquido mensal com descontos estimados de INSS, IRRF, benefícios e outros abatimentos da folha.</p>
+
+      <AdSlot />
+
+      <div class="form-grid">
+        <label>Salário bruto (R$)<input id="salarioBruto" type="number" min="0" step="0.01" placeholder="Ex.: 5000" /></label>
+        <label>Dependentes<input id="dependentes" type="number" min="0" step="1" value="0" /></label>
+        <label>Vale-transporte descontado (R$)<input id="valeTransporte" type="number" min="0" step="0.01" value="0" /></label>
+        <label>Vale-refeição descontado (R$)<input id="valeRefeicao" type="number" min="0" step="0.01" value="0" /></label>
+        <label>Plano de saúde descontado (R$)<input id="planoSaude" type="number" min="0" step="0.01" value="0" /></label>
+        <label>Outros descontos (R$)<input id="outrosDescontos" type="number" min="0" step="0.01" value="0" /></label>
+      </div>
+
+      <button class="btn" id="calcularSalarioLiquido" type="button">Calcular salário líquido</button>
+    </article>
+
+    <aside class="calc-result">
+      <div class="result-card" aria-live="polite">
+        <p class="result-title">Salário líquido em destaque</p>
+        <p class="result-value" id="resultadoLiquido">R$ 0,00</p>
+        <p class="result-detail" id="resumoLiquido">Preencha os campos e clique em calcular para ver o detalhamento.</p>
+      </div>
+      <AdSlot />
+    </aside>
+  </section>
+
+  <section class="container section">
+    <h2>Como usar esta calculadora</h2>
+    <p class="help-text">Informe o salário bruto, a quantidade de dependentes e os descontos mensais (como VT, VR, plano de saúde e outros). Em seguida, clique em calcular para visualizar o salário líquido e o breakdown do cálculo.</p>
+  </section>
+
+  <section class="container section">
+    <h2>Como o cálculo é feito</h2>
+    <p class="help-text">O cálculo estima o INSS por faixas progressivas. Depois, calcula a base do IRRF (salário bruto - INSS - dedução por dependentes). O IRRF estimado é aplicado sobre essa base e somado aos descontos adicionais informados.</p>
+    <p class="help-text">Fórmula resumida: salário líquido = salário bruto - (INSS + IRRF + descontos adicionais).</p>
+  </section>
+
+  <section class="container section">
+    <h2>Exemplo prático</h2>
+    <p class="help-text">Exemplo: salário bruto de R$ 5.000,00, 1 dependente e R$ 650,00 de descontos adicionais. A calculadora estima INSS, ajusta a base do IRRF e apresenta o valor líquido final com todos os descontos separados.</p>
+    <p class="help-text">Aviso: este resultado é estimativo e não substitui o holerite oficial.</p>
+  </section>
+
+  <section class="container section">
+    <h2>Links úteis</h2>
+    <ul>
+      <li><a href="/trabalhista/ferias">Calculadora de férias</a></li>
+      <li><a href="/trabalhista/horas-trabalhadas">Calculadora de horas trabalhadas</a></li>
+      <li><a href="/trabalhista/decimo-terceiro">Calculadora de décimo terceiro</a></li>
+      <li><a href="/blog/como-calcular-salario-liquido">Guia: como calcular salário líquido</a></li>
+    </ul>
+  </section>
+
+  <div class="container">
+    <FAQSection items={faqItems} />
+    <FAQSchema items={faqItems} />
+  </div>
+
+  <script>
+    const formatCurrency = (value) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    const calcularInssEstimado = (salarioBruto) => {
+      const faixas = [
+        [1518.0, 0.075],
+        [2793.88, 0.09],
+        [4190.83, 0.12],
+        [8157.41, 0.14]
+      ];
+
+      let acumulado = 0;
+      let limiteAnterior = 0;
+
+      for (const [limite, aliquota] of faixas) {
+        const valorFaixa = Math.min(salarioBruto, limite) - limiteAnterior;
+        if (valorFaixa > 0) acumulado += valorFaixa * aliquota;
+        limiteAnterior = limite;
+      }
+
+      return acumulado;
+    };
+
+    const calcularIrrfEstimado = (baseIrrf) => {
+      if (baseIrrf <= 2259.2) return 0;
+      if (baseIrrf <= 2826.65) return baseIrrf * 0.075 - 169.44;
+      if (baseIrrf <= 3751.05) return baseIrrf * 0.15 - 381.44;
+      if (baseIrrf <= 4664.68) return baseIrrf * 0.225 - 662.77;
+      return baseIrrf * 0.275 - 896.0;
+    };
+
+    document.getElementById('calcularSalarioLiquido')?.addEventListener('click', () => {
+      const salarioBruto = Number(document.getElementById('salarioBruto')?.value) || 0;
+      const dependentes = Number(document.getElementById('dependentes')?.value) || 0;
+      const valeTransporte = Number(document.getElementById('valeTransporte')?.value) || 0;
+      const valeRefeicao = Number(document.getElementById('valeRefeicao')?.value) || 0;
+      const planoSaude = Number(document.getElementById('planoSaude')?.value) || 0;
+      const outrosDescontos = Number(document.getElementById('outrosDescontos')?.value) || 0;
+
+      const inssEstimado = calcularInssEstimado(salarioBruto);
+      const deducaoDependentes = dependentes * 189.59;
+      const baseIrrf = Math.max(salarioBruto - inssEstimado - deducaoDependentes, 0);
+      const irrfEstimado = Math.max(calcularIrrfEstimado(baseIrrf), 0);
+      const descontosAdicionais = valeTransporte + valeRefeicao + planoSaude + outrosDescontos;
+      const totalDescontos = inssEstimado + irrfEstimado + descontosAdicionais;
+      const salarioLiquido = Math.max(salarioBruto - totalDescontos, 0);
+
+      const resultadoLiquido = document.getElementById('resultadoLiquido');
+      const resumoLiquido = document.getElementById('resumoLiquido');
+
+      if (resultadoLiquido) resultadoLiquido.textContent = formatCurrency(salarioLiquido);
+      if (resumoLiquido) {
+        resumoLiquido.textContent = `Salário bruto: ${formatCurrency(salarioBruto)} · INSS estimado: ${formatCurrency(inssEstimado)} · Base IRRF: ${formatCurrency(baseIrrf)} · IRRF estimado: ${formatCurrency(irrfEstimado)} · Descontos adicionais: ${formatCurrency(descontosAdicionais)} · Total de descontos: ${formatCurrency(totalDescontos)}`;
+      }
+    });
+  </script>
+</BaseLayout>
