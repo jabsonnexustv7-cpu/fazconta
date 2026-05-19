@@ -1,17 +1,68 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import CalculatorCard from '../../components/CalculatorCard.astro';
+import AdSlot from '../../components/AdSlot.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import FAQSchema from '../../components/FAQSchema.astro';
 
-const cards=['tmb','agua-diaria','peso-ideal','percentual-de-gordura','calorias-diarias'];
+const title='Calculadoras de Saúde | FazConta';
+const description='Use calculadoras de saúde para estimar IMC, TMB, água diária, peso ideal e calorias. Ferramentas educativas e sem diagnóstico.';
+const cards=[
+  {slug:'imc',title:'IMC',description:'Índice de Massa Corporal com classificação'},
+  {slug:'tmb',title:'TMB',description:'Taxa metabólica basal por Mifflin-St Jeor'},
+  {slug:'calorias-diarias',title:'Calorias diárias',description:'Gasto total e sugestão por objetivo'},
+  {slug:'agua-diaria',title:'Água diária',description:'Estimativa de hidratação por peso e atividade'},
+  {slug:'peso-ideal',title:'Peso ideal',description:'Faixa saudável por altura (IMC de referência)'},
+  {slug:'percentual-de-gordura',title:'Percentual de gordura',description:'Estimativa complementar de composição corporal'}
+];
+const faqItems=[
+  {question:'As calculadoras de saúde do FazConta dão diagnóstico?',answer:'Não. Elas oferecem estimativas para organização da rotina e educação em saúde.'},
+  {question:'Posso usar os resultados para definir dieta sozinho?',answer:'Use como ponto de partida. Para condutas personalizadas, procure médico ou nutricionista.'},
+  {question:'Por que os resultados podem variar?',answer:'Fórmulas usam médias populacionais e não capturam todo o contexto individual.'},
+  {question:'Essas páginas funcionam no celular?',answer:'Sim. A categoria foi projetada para uso simples em desktop e mobile.'}
+];
 ---
-<BaseLayout title="Calculadoras de Saúde e Bem-Estar | FazConta" description="Estime TMB, calorias, água diária, peso ideal e gordura corporal com ferramentas de saúde para acompanhamento simples da rotina.">
-<section class="container section"><h1>Calculadoras de saúde para acompanhar hábitos com mais consciência</h1><p class="lead">Indicadores simples que ajudam no planejamento de alimentação, hidratação e rotina de cuidados pessoais.</p>
-<p>As ferramentas desta categoria foram pensadas para quem quer monitorar metas de saúde de forma prática: entender gasto calórico, ajustar consumo de água, acompanhar composição corporal e manter disciplina no dia a dia.</p>
-<p>Você pode usar os resultados para organizar rotina semanal, conversar com profissionais de saúde com mais contexto e observar tendências ao longo do tempo. Uma única medição isolada nem sempre explica seu quadro completo, por isso a comparação periódica costuma ser mais útil.</p>
-<p>Essas calculadoras não fazem diagnóstico e não substituem consulta médica, nutricional ou avaliação física. Variáveis como histórico clínico, medicação, exames e condições individuais podem mudar a interpretação dos números.</p>
-<h2>Principais calculadoras de saúde</h2><div class="cards-grid">{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/saude/${s}`} description="Simulação de saúde" badge="Saúde" icon="saude" />)}</div>
-<h2>Boas práticas de uso</h2><ul><li>Registre resultados em intervalos regulares para comparar evolução.</li><li>Combine <a href="/saude/tmb">TMB</a> com <a href="/saude/calorias-diarias">calorias diárias</a> para metas alimentares mais realistas.</li><li>Use <a href="/utilidades/imc">IMC</a> e <a href="/saude/percentual-de-gordura">percentual de gordura</a> juntos para visão mais completa.</li></ul>
-<p><strong>Aviso:</strong> resultados estimativos e informativos, sem valor de diagnóstico.</p>
-<p><a class="btn" href="/saude/calorias-diarias">Calcular calorias diárias</a></p></section><div class="container"><FAQSection title="FAQ saúde" items={[{question:'Posso usar para emagrecimento?',answer:'Sim, como referência inicial para metas, sempre com acompanhamento profissional.'},{question:'TMB é igual a calorias diárias?',answer:'Não. TMB é o gasto em repouso; calorias diárias incluem seu nível de atividade.'},{question:'Esses cálculos servem para crianças?',answer:'Nem sempre. Muitas fórmulas são voltadas para adultos.'},{question:'Substitui consulta médica?',answer:'Não. Em sintomas, doenças ou tratamento, procure avaliação profissional.'}]} /><FAQSchema items={[{question:'As calculadoras desta categoria são confiáveis?',answer:'São úteis para estimativas e estudo.'},{question:'Posso usar no celular?',answer:'Sim, todas funcionam em mobile.'},{question:'Substituem orientação profissional?',answer:'Não, servem como apoio.'},{question:'Os resultados podem variar?',answer:'Sim, por arredondamentos e método aplicado.'}]} /></div></BaseLayout>
+<BaseLayout title={title} description={description}>
+<section class="container section">
+  <Breadcrumb items={[{label:'Home',href:'/'},{label:'Saúde'}]} />
+  <h1>Calculadoras de Saúde do FazConta</h1>
+  <p class="lead">Ferramentas práticas para acompanhar indicadores de saúde com mais clareza, responsabilidade e sem promessas de diagnóstico.</p>
+
+  <p>A categoria Saúde do FazConta foi criada para quem quer organizar melhor hábitos do dia a dia — como alimentação, hidratação, monitoramento de peso e rotina de atividade física — sem complicação técnica. Em vez de textos longos com linguagem difícil, você encontra calculadoras objetivas, com campos simples e explicações diretas sobre o que cada número significa. A ideia é apoiar decisões cotidianas, como comparar semanas, revisar metas e conversar com profissionais com dados mais estruturados.</p>
+  <p>É importante reforçar: todos os resultados aqui são <strong>estimativas</strong>. Isso acontece porque fórmulas de saúde utilizam médias estatísticas e não conseguem incluir todos os fatores que influenciam seu corpo, como histórico clínico, uso de medicamentos, qualidade do sono, exames laboratoriais, nível de estresse, composição corporal detalhada e condições específicas de saúde. Portanto, enxergue as calculadoras como apoio informativo e educativo, não como avaliação médica definitiva.</p>
+  <p>Mesmo com essa limitação, os cálculos podem ser muito úteis quando usados com consistência. Medir de forma periódica ajuda a identificar tendências reais ao longo do tempo. Por exemplo, acompanhar TMB e calorias diárias pode melhorar seu planejamento alimentar; combinar IMC, peso ideal e percentual de gordura amplia a visão sobre estado corporal; e observar ingestão de água pode contribuir para hábitos de hidratação mais regulares. O valor está no acompanhamento responsável, não em um número isolado.</p>
+  <p>Outra vantagem é facilitar o diálogo com profissionais. Quando você leva registros organizados, fica mais fácil discutir objetivos, ajustar condutas e entender evolução. Se houver sintomas, doenças prévias, gestação, adolescência, envelhecimento avançado ou qualquer condição que exija cuidado especial, a recomendação é buscar avaliação de médico, nutricionista ou outro profissional qualificado. Em temas de saúde, contexto individual sempre importa.</p>
+  <p>Também evitamos afirmações absolutas. Você não verá promessas de cura, diagnóstico fechado ou recomendações médicas personalizadas automáticas. Nosso foco é responsabilidade: informar limites dos métodos, explicar como as contas funcionam e incentivar decisões mais conscientes. Se um resultado parecer inesperado, o melhor caminho é confirmar dados inseridos e, em seguida, procurar orientação profissional para interpretação adequada.</p>
+
+  <AdSlot />
+
+  <h2>Calculadoras de saúde disponíveis</h2>
+  <div class="cards-grid">
+    {cards.map((card) => <CalculatorCard title={card.title} href={`/saude/${card.slug}`} description={card.description} badge="Saúde" icon="saude" />)}
+  </div>
+
+  <h2>Mais usadas pelos leitores</h2>
+  <ul>
+    <li><a href="/saude/imc">Calculadora de IMC</a> para referência rápida de classificação.</li>
+    <li><a href="/saude/calorias-diarias">Calculadora de calorias diárias</a> para planejar manutenção, perda ou ganho de peso.</li>
+    <li><a href="/saude/tmb">Calculadora de TMB</a> para estimar gasto energético basal.</li>
+  </ul>
+
+  <h2>Boas práticas para usar as estimativas</h2>
+  <ul>
+    <li>Preencha dados atualizados e com atenção (peso, altura, idade e rotina).</li>
+    <li>Observe evolução em semanas, não conclusões com uma única medição.</li>
+    <li>Use os números para organizar perguntas na consulta profissional.</li>
+    <li>Interrompa autointerpretações em caso de sintomas ou dúvidas clínicas.</li>
+  </ul>
+
+  <p><strong>Aviso geral da categoria:</strong> resultados estimativos, educativos e sem valor de diagnóstico médico.</p>
+
+  <h2>Explore outras categorias</h2>
+  <p><a href="/utilidades">Utilidades</a> · <a href="/matematica">Matemática</a> · <a href="/blog">Blog do FazConta</a></p>
+
+  <FAQSection title="FAQ da categoria Saúde" items={faqItems} />
+  <FAQSchema items={faqItems} />
+</section>
+</BaseLayout>

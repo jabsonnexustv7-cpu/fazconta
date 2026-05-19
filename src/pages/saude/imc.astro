@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import FAQSchema from '../../components/FAQSchema.astro';
+
+const title = 'Calculadora de IMC (Índice de Massa Corporal) | FazConta';
+const description = 'Calcule seu IMC com peso e altura, veja classificação e faixa estimativa de peso saudável. Resultado informativo, sem diagnóstico.';
+const faqItems = [
+  { question: 'O IMC fecha diagnóstico de saúde?', answer: 'Não. O IMC é um indicador inicial e não substitui avaliação clínica, exames e histórico individual.' },
+  { question: 'IMC funciona para atletas?', answer: 'Pode superestimar risco em pessoas com muita massa muscular. Nesses casos, composição corporal e avaliação profissional são importantes.' },
+  { question: 'Gestantes e adolescentes devem usar este cálculo?', answer: 'A interpretação pode ser diferente nesses grupos, então o resultado deve ser visto com cautela e apoio profissional.' },
+  { question: 'Quando procurar profissional de saúde?', answer: 'Se houver sintomas, doenças prévias, mudanças rápidas de peso ou dúvidas sobre conduta, procure médico e nutricionista.' }
+];
+---
+<BaseLayout title={title} description={description}>
+  <section class="container section">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Saúde', href: '/saude' }, { label: 'IMC' }]} />
+    <h1>Calculadora de IMC</h1>
+    <p class="lead">Descubra seu IMC em segundos e use o resultado como referência inicial de acompanhamento.</p>
+    <p>O IMC (Índice de Massa Corporal) relaciona peso e altura para gerar uma estimativa rápida do estado nutricional. O cálculo é útil para triagem, mas não substitui consulta ou diagnóstico profissional.</p>
+    <AdSlot />
+
+    <div class="calc-layout">
+      <form class="calc-form" id="imc-form">
+        <h2>Preencha seus dados</h2>
+        <div class="form-grid">
+          <label>Peso (kg)<input name="peso" type="number" step="0.1" min="1" required /></label>
+          <label>Altura (cm)<input name="altura" type="number" step="0.1" min="30" required /></label>
+        </div>
+        <button class="btn" type="submit">Calcular IMC</button>
+      </form>
+
+      <div class="calc-result">
+        <h2 class="result-title">Resultado</h2>
+        <p class="result-value" id="imc-valor">--</p>
+        <p class="result-detail" id="imc-classificacao">Preencha os campos para visualizar sua classificação.</p>
+        <p class="result-detail" id="imc-faixa">Faixa de peso estimada para IMC 18,5 a 24,9: --</p>
+      </div>
+    </div>
+
+    <h2>Como interpretar o IMC</h2>
+    <p class="help-text">O IMC ajuda a comparar seu valor com faixas de referência, mas não mede diretamente gordura corporal, massa muscular, distribuição de gordura, exames laboratoriais ou contexto clínico.</p>
+    <p class="help-text">Atletas podem ter IMC mais alto por massa muscular; idosos podem precisar de análise funcional; gestantes e adolescentes exigem critérios próprios. Por isso, a leitura deve ser individualizada.</p>
+    <p><strong>Aviso:</strong> cálculo estimativo e informativo. Não use este resultado como diagnóstico definitivo.</p>
+
+    <h2>Como usar esta calculadora</h2>
+    <ul>
+      <li>Informe peso em quilogramas e altura em centímetros.</li>
+      <li>Compare seu resultado com a classificação apresentada.</li>
+      <li>Acompanhe tendências ao longo do tempo, não apenas uma medida isolada.</li>
+    </ul>
+
+    <h2>Como o cálculo é feito</h2>
+    <p class="help-text">Fórmula: IMC = peso (kg) ÷ (altura em metros × altura em metros). Também exibimos a faixa de peso aproximada correspondente ao IMC entre 18,5 e 24,9 para sua altura.</p>
+
+    <h2>Exemplo prático</h2>
+    <p class="help-text">Uma pessoa com 70 kg e 170 cm terá IMC aproximado de 24,2. A faixa estimada de peso para IMC de referência nessa altura fica em torno de 53,5 kg a 72,0 kg.</p>
+
+    <h2>Calculadoras relacionadas</h2>
+    <ul>
+      <li><a href="/saude/tmb">Calculadora de TMB</a></li>
+      <li><a href="/saude/calorias-diarias">Calculadora de calorias diárias</a></li>
+      <li><a href="/saude/peso-ideal">Calculadora de peso ideal</a></li>
+    </ul>
+
+    <p><a href="/saude">Voltar para categoria Saúde</a> · <a href="/blog">Ir para o blog</a></p>
+
+    <FAQSection title="Perguntas frequentes sobre IMC" items={faqItems} />
+    <FAQSchema items={faqItems} />
+  </section>
+
+  <script>
+    const form = document.getElementById('imc-form');
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const peso = Number(data.get('peso'));
+      const alturaCm = Number(data.get('altura'));
+      const alturaM = alturaCm / 100;
+      const imc = peso / (alturaM * alturaM);
+
+      let classificacao = 'Obesidade';
+      if (imc < 18.5) classificacao = 'Abaixo do peso';
+      else if (imc < 25) classificacao = 'Peso adequado';
+      else if (imc < 30) classificacao = 'Sobrepeso';
+
+      const pesoMin = 18.5 * alturaM * alturaM;
+      const pesoMax = 24.9 * alturaM * alturaM;
+
+      document.getElementById('imc-valor').textContent = imc.toFixed(1).replace('.', ',');
+      document.getElementById('imc-classificacao').textContent = `Classificação estimada: ${classificacao}.`;
+      document.getElementById('imc-faixa').textContent = `Faixa de peso estimada para IMC 18,5 a 24,9: ${pesoMin.toFixed(1).replace('.', ',')} kg a ${pesoMax.toFixed(1).replace('.', ',')} kg.`;
+    });
+  </script>
+</BaseLayout>
