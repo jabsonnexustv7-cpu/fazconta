@@ -1,28 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ResultCard from '../../components/ResultCard.astro';
-import AdSlot from '../../components/AdSlot.astro';
-import FAQSection from '../../components/FAQSection.astro';
-import CalculatorSEOContent from '../../components/CalculatorSEOContent.astro';
-const pageTitle='Calculadora de Mdc Mmc';
-const description='Simule mdc mmc com cálculo rápido e visual premium no FazConta.';
-const canonical='https://fazconta.pages.dev/matematica/mdc-mmc';
-const related=[{href:'/matematica',label:'Categoria Matematica'},{href:'/',label:'Home'},{href:'/financeiro/cdi',label:'CDI'},{href:'/utilidades/regra-de-tres',label:'Regra de três'}];
+import BaseLayout from '../../layouts/BaseLayout.astro';import Breadcrumb from '../../components/Breadcrumb.astro';import AdSlot from '../../components/AdSlot.astro';import FAQSection from '../../components/FAQSection.astro';import FAQSchema from '../../components/FAQSchema.astro';
+const faqItems=[{question:'Para que serve o MDC?',answer:'Para simplificar frações e dividir quantidades em partes iguais.'},{question:'Para que serve o MMC?',answer:'Para somar/subtrair frações e alinhar ciclos.'},{question:'Só aceita inteiros?',answer:'Sim, este cálculo trabalha com números inteiros.'},{question:'Pode ser número negativo?',answer:'Consideramos o valor absoluto no cálculo.'}];
 ---
-<BaseLayout title={pageTitle + ' | FazConta'} description={description} canonical={canonical}>
-<section class='container section'>
-<nav class='help-text'><a href='/'>Home</a> / <a href='/matematica'>Matematica</a> / Mdc Mmc</nav>
-<h1>{pageTitle}</h1><p class='lead'>{description}</p><AdSlot />
-<div class='calc-layout'>
-<form class='calc-form' data-calc='simple'><div class='form-grid'><label>Valor 1<input name='v1' type='number' step='0.01' required /></label><label>Valor 2<input name='v2' type='number' step='0.01' required /></label></div><button class='btn' type='submit'>Calcular</button></form>
-<div class='calc-result'><ResultCard title='Resultado' value='--' detail='Preencha os campos e calcule.' /></div>
-</div>
-<AdSlot />
-<h2>Explicação do cálculo</h2><p class='help-text'>Esta versão aplica conta base entre dois valores para apoiar estimativas rápidas.</p>
-<h2>Exemplo prático</h2><p class='help-text'>Com 100 e 20, o resultado retornado é 120.</p>
-<CalculatorSEOContent title={pageTitle} related={related} />
-<AdSlot />
-<FAQSection title={'Dúvidas sobre ' + pageTitle} items={[{ question: 'Este cálculo é oficial?', answer: 'É uma simulação para planejamento.' },{ question: 'Funciona no celular?', answer: 'Sim, com foco em mobile e acessibilidade.' }]} />
-</section>
-<script>document.querySelector('[data-calc="simple"]')?.addEventListener('submit',(e)=>{e.preventDefault();const f=e.currentTarget;const v1=Number(f.v1.value||0);const v2=Number(f.v2.value||0);const target=document.querySelector('.calc-result .result-value'); if(target) target.textContent=(v1+v2).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});});</script>
-</BaseLayout>
+<BaseLayout title='MDC e MMC | FazConta' description='Calcule rapidamente o MDC e MMC de dois números inteiros.'><section class='container section'><Breadcrumb items={[{label:'Home',href:'/'},{label:'Matemática',href:'/matematica'},{label:'MDC e MMC'}]} /><h1>Calculadora de MDC e MMC</h1><AdSlot /><div class='calc-layout'><form class='calc-form' id='mdc-form'><div class='form-grid'><label>Número 1<input name='a' type='number' required/></label><label>Número 2<input name='b' type='number' required/></label></div><button class='btn'>Calcular</button></form><div class='calc-result'><h2 class='result-title'>Resultado</h2><p class='result-value' id='mdcvalor'>--</p><p class='result-detail' id='mmcvalor'>--</p></div></div><p class='help-text'>Exemplo: para 12 e 18, o MDC é 6 e o MMC é 36.</p><FAQSection title='FAQ de MDC e MMC' items={faqItems}/><FAQSchema items={faqItems}/></section><script>const gcd=(x,y)=>{x=Math.abs(x);y=Math.abs(y);while(y){[x,y]=[y,x%y]}return x||1};document.getElementById('mdc-form')?.addEventListener('submit',(e)=>{e.preventDefault();const a=Number(e.currentTarget.a.value),b=Number(e.currentTarget.b.value);const m=gcd(a,b);const mmc=Math.abs(a*b)/(m||1);document.getElementById('mdcvalor').textContent=`MDC: ${m}`;document.getElementById('mmcvalor').textContent=`MMC: ${mmc}`;});</script></BaseLayout>
