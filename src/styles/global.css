@@ -75,6 +75,24 @@ input:focus-visible,select:focus-visible{outline:2px solid #93c5fd;outline-offse
 .related-links{margin-top:1rem;display:flex;gap:.8rem;flex-wrap:wrap}
 .related-links a{color:var(--primary)}
 .calc-card{padding:1rem;display:flex;align-items:center}
+.ad-slot{
+  width:100%;
+  min-height:90px;
+  margin:1.25rem 0;
+  padding:1rem;
+  border:1px dashed #cbd5e1;
+  border-radius:12px;
+  background:#f8fafc;
+  color:#64748b;
+  font-size:.95rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.ad-slot--top{margin-top:1rem}
+.ad-slot--middle{margin:1.5rem 0}
+.ad-slot--bottom{margin-bottom:1.5rem}
 
 .breadcrumb ol{display:flex;gap:.5rem;list-style:none;padding:0;margin:0 0 1rem;flex-wrap:wrap}
 .breadcrumb li:not(:last-child)::after{content:'›';margin-left:.5rem;color:#94a3b8}

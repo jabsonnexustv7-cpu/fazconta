@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CalculatorCard from '../../components/CalculatorCard.astro';
+import AdSlot from '../../components/AdSlot.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import FAQSchema from '../../components/FAQSchema.astro';
 const cards=['regra-de-tres','idade-exata','dias-entre-datas','conversor-temperatura','conversor-medidas','imc','porcentagem'];
@@ -28,7 +29,9 @@ const faqItems=[
 </ul>
 <p>Quando falamos de utilidades, pequenos detalhes importam. Um campo mal nomeado ou uma explicação vaga pode induzir a erro. Por isso, cada ferramenta desta seção foi estruturada para tornar a leitura objetiva: você informa o dado, recebe o número principal e entende o raciocínio sem termos desnecessários.</p>
 <p>Também vale reforçar: muitas decisões importantes exigem validação adicional. Os cálculos aqui servem como apoio de planejamento. Em contexto oficial, médico, jurídico ou contratual, confirme sempre as regras específicas do órgão ou profissional responsável.</p>
-<h2>Mais usadas</h2>
+
+
+  <AdSlot position="top" /><h2>Mais usadas</h2>
 <ul><li><a href='/utilidades/porcentagem'>Porcentagem</a></li><li><a href='/utilidades/regra-de-tres'>Regra de Três</a></li><li><a href='/utilidades/dias-entre-datas'>Dias entre Datas</a></li></ul>
 <h2>Todas as calculadoras</h2>
 <div class='cards-grid'>{cards.map((s)=><CalculatorCard title={s.replaceAll('-',' ')} href={`/utilidades/${s}`} description='Ferramenta prática para o cotidiano' badge='Utilidades' icon='utilidades' />)}</div>

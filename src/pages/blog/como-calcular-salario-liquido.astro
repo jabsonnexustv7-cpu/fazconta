@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import AdSlot from '../../components/AdSlot.astro';
 const faq=[
   {question:'Posso usar este conteúdo para planejamento?',answer:'Sim. O guia é educativo e ajuda em simulações antes da decisão final.'},
   {question:'Os valores são oficiais?',answer:'As regras seguem referências públicas, mas podem variar por convenção, contrato ou atualização legal.'},
@@ -14,9 +15,11 @@ const faq=[
   <Breadcrumb items={[{label:'Início',href:'/'},{label:'Blog',href:'/blog'},{label:'Salário Líquido'}]} />
   <h1>Salário Líquido</h1>
   <p class="lead">Este guia foi feito para ajudar você a entender o cálculo de forma prática, sem juridiquês e com foco em decisão.</p>
+  <AdSlot position="top" />
   <p>Quando falamos de cálculos financeiros e trabalhistas, o maior risco não é a fórmula em si, mas a falta de contexto... (conteúdo aprofundado para SEO e utilidade real). Esse material foi estruturado para cobrir conceitos, exemplos, cenários e erros comuns que afetam resultados.</p>
   <p>Outro ponto importante é transformar o cálculo em rotina. Em vez de calcular apenas quando surge um problema, o ideal é acompanhar periodicamente os indicadores que mais afetam sua vida financeira. Faça comparações mensais e registre decisões.</p>
   <p>Também vale lembrar que boa decisão depende de cenário. O mesmo número pode ser bom ou ruim dependendo da sua meta. Simule cenário conservador, provável e otimista para ganhar previsibilidade.</p>
+  <AdSlot position="middle" />
   <p>Para acertar com mais frequência, adote um checklist: valide dados, rode a simulação, revise premissas, compare alternativas e registre a decisão. Isso reduz erros e melhora resultados.</p>
   <p>Na prática, o FazConta ajuda exatamente nesse ponto: centralizar ferramentas confiáveis com linguagem simples. Com poucos campos, você consegue testar hipóteses rapidamente e ganhar clareza.</p>
   <p>Além disso, o aprendizado melhora quando você cruza conteúdos relacionados. Por isso, use os links internos abaixo para aprofundar no mesmo tema e evitar decisões isoladas.</p>
@@ -26,6 +29,7 @@ const faq=[
     <li><a href="/trabalhista/ferias">Calculadora de Férias</a></li>
     <li><a href="/financeiro/juros-compostos">Calculadora de Juros Compostos</a></li>
   </ul>
+  <AdSlot position="bottom" />
   <p><strong>CTA:</strong> Pronto para aplicar? Use agora a <a href="/trabalhista/salario-liquido">calculadora correspondente</a> e simule com seus números reais.</p>
 </section>
 <div class="container"><FAQSection title="FAQ" items={faq} /></div>

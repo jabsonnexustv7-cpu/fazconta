@@ -1,3 +1,10 @@
-<div class="ad-slot" role="complementary" aria-label="Espaço reservado para anúncio">
+---
+interface Props {
+  position?: 'top' | 'middle' | 'bottom';
+}
+
+const { position = 'middle' } = Astro.props;
+---
+<div class={`ad-slot ad-slot--${position}`} role="complementary" aria-label="Espaço reservado para anúncio">
   Espaço reservado para anúncio
 </div>

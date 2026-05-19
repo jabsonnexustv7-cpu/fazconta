@@ -1,5 +1,6 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';import Breadcrumb from '../../components/Breadcrumb.astro';import FAQSection from '../../components/FAQSection.astro';import FAQSchema from '../../components/FAQSchema.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';import Breadcrumb from '../../components/Breadcrumb.astro';
+import AdSlot from '../../components/AdSlot.astro';import FAQSection from '../../components/FAQSection.astro';import FAQSchema from '../../components/FAQSchema.astro';
 const faqItems=[{question:'INCC e IPCA são iguais?',answer:'Não. O INCC mede custos da construção civil; o IPCA mede inflação ao consumidor.'},{question:'Contrato pode usar outro índice?',answer:'Sim. Cada contrato define regra de reajuste e periodicidade.'},{question:'Correção mensal é igual ao acumulado dividido por meses?',answer:'Não necessariamente; o correto é usar taxa equivalente composta.'},{question:'A calculadora substitui análise contratual?',answer:'Não. Ela apoia estimativa; cláusulas contratuais prevalecem.'}];
 ---
 <BaseLayout title='Como calcular INCC em imóveis na planta | Blog FazConta' description='Entenda como calcular INCC acumulado e mensal, com exemplos práticos em imóvel na planta.'><section class='container section'><Breadcrumb items={[{label:'Início',href:'/'},{label:'Blog',href:'/blog'},{label:'Como calcular INCC'}]} /><h1>Como calcular INCC em imóveis na planta</h1><p class='lead'>Guia prático para entender reajuste pelo INCC, diferença entre taxa acumulada e mensal e cuidados antes de assinar contrato.</p>
